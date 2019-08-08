@@ -40,7 +40,7 @@ public abstract class TabularAnalytic
 
     return analyticList;
   }
-
+  
   @Override
   public List<AnalyticCell> getAnalyticColumn(int column) {
     //check map cache
