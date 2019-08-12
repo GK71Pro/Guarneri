@@ -6,10 +6,10 @@ import com.gkaraffa.guarneri.analysis.AnalyticCell;
 import com.gkaraffa.guarneri.analysis.HeaderCell;
 import com.gkaraffa.guarneri.analysis.TabularAnalytic;
 
-public class CSVViewFactory extends ViewFactory {
+public class CSVAnalyticViewFactory extends AnalyticViewFactory {
 
   @Override
-  public View renderView(TabularAnalytic tabularAnalytic) {
+  public AnalyticView renderView(TabularAnalytic tabularAnalytic) {
     StringBuilder sB = new StringBuilder();
     
     sB.append(this.renderHeader(tabularAnalytic));
@@ -17,7 +17,7 @@ public class CSVViewFactory extends ViewFactory {
     sB.append("\n");
     
     String viewString = sB.toString();
-    View outputView = new View(viewString, viewString.getBytes());
+    AnalyticView outputView = new AnalyticView(viewString, viewString.getBytes());
     
     return outputView;
   }

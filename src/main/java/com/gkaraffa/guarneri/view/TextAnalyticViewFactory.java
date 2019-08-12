@@ -6,9 +6,9 @@ import com.gkaraffa.guarneri.analysis.AnalyticCell;
 import com.gkaraffa.guarneri.analysis.HeaderCell;
 import com.gkaraffa.guarneri.analysis.TabularAnalytic;
 
-public class TextViewFactory extends ViewFactory {
+public class TextAnalyticViewFactory extends AnalyticViewFactory {
   @Override
-  public View renderView(TabularAnalytic tabularAnalytic) {
+  public AnalyticView renderView(TabularAnalytic tabularAnalytic) {
     StringBuilder sB = new StringBuilder();
     int[] columnMaxs = determineColumnMaxs(tabularAnalytic);
     int fieldSpace = determineFieldSpace(columnMaxs);
@@ -19,7 +19,7 @@ public class TextViewFactory extends ViewFactory {
     sB.append("\n");
 
     String viewString = sB.toString();
-    View outputView = new View(viewString, viewString.getBytes());
+    AnalyticView outputView = new AnalyticView(viewString, viewString.getBytes());
 
     return outputView;
   }
