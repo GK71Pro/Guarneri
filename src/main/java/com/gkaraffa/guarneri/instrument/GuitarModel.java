@@ -8,26 +8,17 @@ import com.gkaraffa.cremona.theoretical.ToneCollection;
 
 public class GuitarModel extends InstrumentModel implements InstrumentRow, InstrumentColumn {
   private ArrayList<ArrayList<Pitch>> strings = new ArrayList<ArrayList<Pitch>>();
-  private int fretCount;
-  private int stringCount;
 
   public GuitarModel(ArrayList<ArrayList<Pitch>> strings, int fretCount) {
     super();
     this.strings = strings;
-    this.stringCount = strings.size();
-    this.fretCount = fretCount;
+    this.maxLength = fretCount;
+    this.maxWidth = strings.size();
   }
 
-  public int getFretCount() {
-    return fretCount;
-  }
-
-  public int getStringCount() {
-    return stringCount;
-  }
 
   public Pitch[] getRow(int row) {
-    if (row > fretCount) {
+    if (row > this.maxLength) {
       throw new IllegalArgumentException();
     }
 
@@ -42,7 +33,7 @@ public class GuitarModel extends InstrumentModel implements InstrumentRow, Instr
   }
 
   public Pitch[] getFilteredRow(int row, ToneCollection toneFilter) {
-    if (row > fretCount) {
+    if (row > this.maxLength) {
       throw new IllegalArgumentException();
     }
 
@@ -64,7 +55,7 @@ public class GuitarModel extends InstrumentModel implements InstrumentRow, Instr
   }
 
   public Pitch[] getFilteredRow(int row, PitchCollection pitchFilter) {
-    if (row > fretCount) {
+    if (row > this.maxLength) {
       throw new IllegalArgumentException();
     }
 
@@ -90,7 +81,7 @@ public class GuitarModel extends InstrumentModel implements InstrumentRow, Instr
       throw new IllegalArgumentException();
     }
     
-    Pitch[] targetPitchColumn = new Pitch[fretCount];
+    Pitch[] targetPitchColumn = new Pitch[this.maxLength];
     targetPitchColumn = strings.get(column).toArray(targetPitchColumn);
     
     return targetPitchColumn;
@@ -101,10 +92,10 @@ public class GuitarModel extends InstrumentModel implements InstrumentRow, Instr
       throw new IllegalArgumentException();
     }
     
-    Pitch[] targetPitchColumn = new Pitch[fretCount];
+    Pitch[] targetPitchColumn = new Pitch[this.maxLength];
     ArrayList<Pitch> tempPtr = strings.get(column);
     
-    for (int index = 0; index < fretCount; index++) {
+    for (int index = 0; index < this.maxLength; index++) {
       Pitch currentPitch = tempPtr.get(index);
       
       if (toneFilter.contains(currentPitch.getTone())){
@@ -123,10 +114,10 @@ public class GuitarModel extends InstrumentModel implements InstrumentRow, Instr
       throw new IllegalArgumentException();
     }
     
-    Pitch[] targetPitchColumn = new Pitch[fretCount];
+    Pitch[] targetPitchColumn = new Pitch[this.maxLength];
     ArrayList<Pitch> tempPtr = strings.get(column);
     
-    for (int index = 0; index < fretCount; index++) {
+    for (int index = 0; index < this.maxLength; index++) {
       Pitch currentPitch = tempPtr.get(index);
       
       if (pitchFilter.contains(currentPitch)){

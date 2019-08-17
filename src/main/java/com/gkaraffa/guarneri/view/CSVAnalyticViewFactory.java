@@ -4,35 +4,35 @@ import java.util.List;
 
 import com.gkaraffa.guarneri.analysis.AnalyticCell;
 import com.gkaraffa.guarneri.analysis.HeaderCell;
-import com.gkaraffa.guarneri.analysis.TabularAnalytic;
+import com.gkaraffa.guarneri.analysis.Analytic;
 
 public class CSVAnalyticViewFactory extends AnalyticViewFactory {
 
   @Override
-  public AnalyticView renderView(TabularAnalytic tabularAnalytic) {
+  public View renderView(Analytic analytic) {
     StringBuilder sB = new StringBuilder();
     
-    sB.append(this.renderHeader(tabularAnalytic));
-    sB.append(this.renderBody(tabularAnalytic));
+    sB.append(this.renderHeader(analytic));
+    sB.append(this.renderBody(analytic));
     sB.append("\n");
     
     String viewString = sB.toString();
-    AnalyticView outputView = new AnalyticView(viewString, viewString.getBytes());
+    View outputView = new View(viewString, viewString.getBytes());
     
     return outputView;
   }
 
-  private String renderHeader(TabularAnalytic tabularAnalytic) {
+  private String renderHeader(Analytic analytic) {
     StringBuilder sB = new StringBuilder();
 
-    sB.append(renderTitles(tabularAnalytic) + "\n");
+    sB.append(renderTitles(analytic) + "\n");
 
     return sB.toString();
   }
 
-  private String renderTitles(TabularAnalytic tabularAnalytic) {
-    List<HeaderCell> headerCells = tabularAnalytic.getHeaderRow();
-    int numCols = tabularAnalytic.getColumnCount();
+  private String renderTitles(Analytic analytic) {
+    List<HeaderCell> headerCells = analytic.getHeaderRow();
+    int numCols = analytic.getColumnCount();
     StringBuilder sB = new StringBuilder();
 
     for (int index = 0; index < numCols; index++) {
@@ -45,12 +45,12 @@ public class CSVAnalyticViewFactory extends AnalyticViewFactory {
     return sB.toString();
   }
   
-  private String renderBody(TabularAnalytic tabularAnalytic) {
+  private String renderBody(Analytic analytic) {
     StringBuilder sB = new StringBuilder();
-    int numRows = tabularAnalytic.getRowCount();
+    int numRows = analytic.getRowCount();
     
     for(int index = 0; index < numRows; index++) {
-      List<AnalyticCell> analyticCells = tabularAnalytic.getAnalyticRow(index);
+      List<AnalyticCell> analyticCells = analytic.getAnalyticRow(index);
       
       for(AnalyticCell analyticCell: analyticCells) {
         sB.append(analyticCell);

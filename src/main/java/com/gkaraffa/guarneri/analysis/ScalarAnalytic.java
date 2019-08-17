@@ -4,7 +4,7 @@ import com.gkaraffa.cremona.theoretical.TonalSpectrum;
 import com.gkaraffa.cremona.theoretical.ToneCollection;
 import com.gkaraffa.cremona.theoretical.scale.Scale;
 
-public class ScalarAnalytic extends TabularAnalytic {
+public class ScalarAnalytic extends Analytic {
 
   public ScalarAnalytic(HeaderCell[] headerRowCells, HeaderCell[] headerColumnCells,
       AnalyticCell[][] analyticCells) {

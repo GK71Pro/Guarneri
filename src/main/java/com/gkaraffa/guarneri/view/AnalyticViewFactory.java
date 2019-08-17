@@ -1,7 +1,7 @@
 package com.gkaraffa.guarneri.view;
 
-import com.gkaraffa.guarneri.analysis.TabularAnalytic;
+import com.gkaraffa.guarneri.analysis.Analytic;
 
 public abstract class AnalyticViewFactory {
-  public abstract AnalyticView renderView(TabularAnalytic tabularAnalytic);
+  public abstract View renderView(Analytic analytic);
 }

@@ -1,10 +1,10 @@
 package com.gkaraffa.guarneri.view;
 
-public class AnalyticView {
+public class View {
   private String viewString;
   private byte[] byteArray;
 
-  public AnalyticView(String viewString, byte[] byteArray) {
+  public View(String viewString, byte[] byteArray) {
     this.viewString = viewString;
     this.byteArray = byteArray;
   }

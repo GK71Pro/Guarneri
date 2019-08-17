@@ -4,7 +4,7 @@ import com.gkaraffa.cremona.theoretical.Interval;
 import com.gkaraffa.cremona.theoretical.IntervalNumber;
 import com.gkaraffa.cremona.theoretical.scale.Scale;
 
-public class IntervalAnalytic extends TabularAnalytic {
+public class IntervalAnalytic extends Analytic {
 
   private IntervalAnalytic(HeaderCell[] headerRowCells, HeaderCell[] headerColumnCells,
       AnalyticCell[][] analyticCells) {

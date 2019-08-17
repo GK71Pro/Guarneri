@@ -13,8 +13,8 @@ public class FretboardCreator {
 
   public static String createFretboardText(GuitarModel guitarModel) {
     StringBuilder sB = new StringBuilder();
-    int numStrings = guitarModel.getStringCount();
-    int numFrets = guitarModel.getFretCount();
+    int numStrings = guitarModel.getMaxWidth();
+    int numFrets = guitarModel.getMaxLength();
 
     sB.append(FretboardCreator.fret);
 
@@ -35,8 +35,8 @@ public class FretboardCreator {
 
   public static String createFretboardCSV(GuitarModel guitarModel) {
     StringBuilder sB = new StringBuilder();
-    int numStrings = guitarModel.getStringCount();
-    int numFrets = guitarModel.getFretCount();
+    int numStrings = guitarModel.getMaxWidth();
+    int numFrets = guitarModel.getMaxLength();
 
     for (int index = 0; index <= numFrets; index++) {
       Pitch[] currentFret = guitarModel.getRow(index);
@@ -57,8 +57,8 @@ public class FretboardCreator {
   public static String createFormattedFretboardText(GuitarModel guitarModel,
       ToneCollection toneCollection) {
     StringBuilder sB = new StringBuilder();
-    int numStrings = guitarModel.getStringCount();
-    int numFrets = guitarModel.getFretCount();
+    int numStrings = guitarModel.getMaxWidth();
+    int numFrets = guitarModel.getMaxLength();
 
     sB.append(FretboardCreator.fret);
 
@@ -80,8 +80,8 @@ public class FretboardCreator {
   public static String createFormattedFretboardCSV(GuitarModel guitarModel,
       ToneCollection toneCollection) {
     StringBuilder sB = new StringBuilder();
-    int numStrings = guitarModel.getStringCount();
-    int numFrets = guitarModel.getFretCount();
+    int numStrings = guitarModel.getMaxWidth();
+    int numFrets = guitarModel.getMaxLength();
 
     for (int index = 0; index <= numFrets; index++) {
       Pitch[] currentFret = guitarModel.getFilteredRow(index, toneCollection);
@@ -102,8 +102,8 @@ public class FretboardCreator {
   public static String createFormattedFretboardText(GuitarModel guitarModel,
       PitchCollection pitchCollection) {
     StringBuilder sB = new StringBuilder();
-    int numStrings = guitarModel.getStringCount();
-    int numFrets = guitarModel.getFretCount();
+    int numStrings = guitarModel.getMaxWidth();
+    int numFrets = guitarModel.getMaxLength();
 
     sB.append(FretboardCreator.fret);
 
@@ -125,8 +125,8 @@ public class FretboardCreator {
   public static String createFormattedFretboardCSV(GuitarModel guitarModel,
       PitchCollection pitchCollection) {
     StringBuilder sB = new StringBuilder();
-    int numStrings = guitarModel.getStringCount();
-    int numFrets = guitarModel.getFretCount();
+    int numStrings = guitarModel.getMaxWidth();
+    int numFrets = guitarModel.getMaxLength();
 
     for (int index = 0; index <= numFrets; index++) {
       Pitch[] currentFret = guitarModel.getFilteredRow(index, pitchCollection);

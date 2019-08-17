@@ -6,7 +6,7 @@ import com.gkaraffa.cremona.theoretical.ToneCollection;
 import com.gkaraffa.cremona.theoretical.chord.Chord;
 import com.gkaraffa.cremona.theoretical.scale.DiatonicScale;
 
-public class RomanNumeralAnalytic extends TabularAnalytic {
+public class RomanNumeralAnalytic extends Analytic {
 
   private RomanNumeralAnalytic(HeaderCell[] headerRowCells, HeaderCell[] headerColumnCells,
       AnalyticCell[][] analyticCells) {

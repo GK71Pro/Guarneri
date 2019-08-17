@@ -4,35 +4,35 @@ import java.util.List;
 
 import com.gkaraffa.guarneri.analysis.AnalyticCell;
 import com.gkaraffa.guarneri.analysis.HeaderCell;
-import com.gkaraffa.guarneri.analysis.TabularAnalytic;
+import com.gkaraffa.guarneri.analysis.Analytic;
 
 public class TextAnalyticViewFactory extends AnalyticViewFactory {
   @Override
-  public AnalyticView renderView(TabularAnalytic tabularAnalytic) {
+  public View renderView(Analytic analytic) {
     StringBuilder sB = new StringBuilder();
-    int[] columnMaxs = determineColumnMaxs(tabularAnalytic);
+    int[] columnMaxs = determineColumnMaxs(analytic);
     int fieldSpace = determineFieldSpace(columnMaxs);
 
-    sB.append(this.renderHeader(columnMaxs, fieldSpace, tabularAnalytic));
-    sB.append(this.renderBody(columnMaxs, fieldSpace, tabularAnalytic));
+    sB.append(this.renderHeader(columnMaxs, fieldSpace, analytic));
+    sB.append(this.renderBody(columnMaxs, fieldSpace, analytic));
     sB.append(this.renderFoot(fieldSpace));
     sB.append("\n");
 
     String viewString = sB.toString();
-    AnalyticView outputView = new AnalyticView(viewString, viewString.getBytes());
+    View outputView = new View(viewString, viewString.getBytes());
 
     return outputView;
   }
 
-  private int[] determineColumnMaxs(TabularAnalytic tabularAnalytic) {
-    int numCols = tabularAnalytic.getColumnCount();
+  private int[] determineColumnMaxs(Analytic analytic) {
+    int numCols = analytic.getColumnCount();
     int[] columnMaxs = new int[numCols];
 
     for (int index = 0; index < numCols; index++) {
       int maxLen = 0;
 
       // check all rows
-      List<AnalyticCell> analyticCells = tabularAnalytic.getAnalyticColumn(index);
+      List<AnalyticCell> analyticCells = analytic.getAnalyticColumn(index);
       for (AnalyticCell analyticCell : analyticCells) {
         int currentLength = analyticCell.getAnalyticText().length();
         if (currentLength > maxLen) {
@@ -41,7 +41,7 @@ public class TextAnalyticViewFactory extends AnalyticViewFactory {
       }
 
       // check header
-      int headerLength = tabularAnalytic.getHeaderRow().get(index).getHeaderText().length();
+      int headerLength = analytic.getHeaderRow().get(index).getHeaderText().length();
       if (headerLength > maxLen) {
         maxLen = headerLength;
       }
@@ -63,22 +63,22 @@ public class TextAnalyticViewFactory extends AnalyticViewFactory {
     return fieldSpace;
   }
 
-  private String renderHeader(int[] columnMaxs, int fieldSpace, TabularAnalytic tabularAnalytic) {
+  private String renderHeader(int[] columnMaxs, int fieldSpace, Analytic analytic) {
     StringBuilder sB = new StringBuilder();
 
     sB.append(renderBar(fieldSpace) + "\n");
-    sB.append(renderTitles(columnMaxs, tabularAnalytic) + "\n");
+    sB.append(renderTitles(columnMaxs, analytic) + "\n");
     sB.append(renderBar(fieldSpace) + "\n");
 
     return sB.toString();
   }
 
-  private String renderBody(int[] columnMaxs, int fieldSpace, TabularAnalytic tabularAnalytic) {
+  private String renderBody(int[] columnMaxs, int fieldSpace, Analytic analytic) {
     StringBuilder sB = new StringBuilder();
-    int numRows = tabularAnalytic.getRowCount();
+    int numRows = analytic.getRowCount();
 
     for (int index = 0; index < numRows; index++) {
-      List<AnalyticCell> analyticCells = tabularAnalytic.getAnalyticRow(index);
+      List<AnalyticCell> analyticCells = analytic.getAnalyticRow(index);
       int columnCount = 0;
 
       for (AnalyticCell analyticCell : analyticCells) {
@@ -107,9 +107,9 @@ public class TextAnalyticViewFactory extends AnalyticViewFactory {
     return sB.toString();
   }
 
-  private String renderTitles(int[] columnMaxs, TabularAnalytic tabularAnalytic) {
-    List<HeaderCell> headerCells = tabularAnalytic.getHeaderRow();
-    int numCols = tabularAnalytic.getColumnCount();
+  private String renderTitles(int[] columnMaxs, Analytic analytic) {
+    List<HeaderCell> headerCells = analytic.getHeaderRow();
+    int numCols = analytic.getColumnCount();
     StringBuilder sB = new StringBuilder();
 
     for (int index = 0; index < numCols; index++) {

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public abstract class TabularAnalytic
+public abstract class Analytic
     implements AnalyticRow, AnalyticColumn, HeaderRow {
   private HashMap<Integer, List<AnalyticCell>> rowMap = new HashMap<Integer, List<AnalyticCell>>();
   private HashMap<Integer, List<AnalyticCell>> columnMap = new HashMap<Integer, List<AnalyticCell>>();
