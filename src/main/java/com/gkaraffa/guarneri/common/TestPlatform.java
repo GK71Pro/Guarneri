@@ -5,6 +5,7 @@ import com.gkaraffa.cremona.theoretical.scale.Scale;
 import com.gkaraffa.guarneri.instrument.GuitarModel;
 import com.gkaraffa.guarneri.instrument.GuitarModelFactory;
 import com.gkaraffa.guarneri.instrument.InstrumentModelFactory;
+import com.gkaraffa.guarneri.view.CSVInstrumentViewFactory;
 import com.gkaraffa.guarneri.view.InstrumentViewFactory;
 import com.gkaraffa.guarneri.view.TextInstrumentViewFactory;
 import com.gkaraffa.guarneri.view.View;
@@ -18,7 +19,7 @@ public class TestPlatform {
     Scale scale = helper.getScale("C", "Ionian");
     InstrumentModelFactory iMF = new GuitarModelFactory();
     GuitarModel guitar = (GuitarModel) iMF.createInstrumentModel();
-    InstrumentViewFactory iVF = new TextInstrumentViewFactory();
+    InstrumentViewFactory iVF = new CSVInstrumentViewFactory();
     View view = iVF.renderFilteredInstrumentView(guitar, scale.getToneCollection());
     
     System.out.println(view.toString());
