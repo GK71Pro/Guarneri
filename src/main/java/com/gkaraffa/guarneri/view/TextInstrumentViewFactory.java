@@ -3,7 +3,6 @@ package com.gkaraffa.guarneri.view;
 import com.gkaraffa.cremona.common.Pitch;
 import com.gkaraffa.cremona.common.PitchCollection;
 import com.gkaraffa.cremona.theoretical.ToneCollection;
-import com.gkaraffa.guarneri.experimental.FretboardCreator;
 import com.gkaraffa.guarneri.instrument.InstrumentModel;
 
 public class TextInstrumentViewFactory extends InstrumentViewFactory {
