@@ -1,4 +1,4 @@
-package com.gkaraffa.guarneri.analysis;
+package com.gkaraffa.guarneri.model.analytic;
 
 import com.gkaraffa.cremona.theoretical.TonalSpectrum;
 import com.gkaraffa.cremona.theoretical.ToneCollection;

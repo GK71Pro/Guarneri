@@ -2,7 +2,7 @@ package com.gkaraffa.guarneri.view;
 
 import com.gkaraffa.cremona.common.PitchCollection;
 import com.gkaraffa.cremona.theoretical.ToneCollection;
-import com.gkaraffa.guarneri.instrument.InstrumentModel;
+import com.gkaraffa.guarneri.model.instrument.InstrumentModel;
 
 public abstract class InstrumentViewFactory {
   public abstract View renderInstrumentView(InstrumentModel instrumentModel);

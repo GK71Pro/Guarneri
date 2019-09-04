@@ -1,4 +1,4 @@
-package com.gkaraffa.guarneri.instrument;
+package com.gkaraffa.guarneri.model.instrument;
 
 public abstract class InstrumentModel implements InstrumentRow, InstrumentColumn {
   protected int maxWidth;

@@ -2,9 +2,9 @@ package com.gkaraffa.guarneri.view;
 
 import java.util.List;
 
-import com.gkaraffa.guarneri.analysis.AnalyticCell;
-import com.gkaraffa.guarneri.analysis.HeaderCell;
-import com.gkaraffa.guarneri.analysis.Analytic;
+import com.gkaraffa.guarneri.model.analytic.Analytic;
+import com.gkaraffa.guarneri.model.analytic.AnalyticCell;
+import com.gkaraffa.guarneri.model.analytic.HeaderCell;
 
 public class CSVAnalyticViewFactory extends AnalyticViewFactory {
 

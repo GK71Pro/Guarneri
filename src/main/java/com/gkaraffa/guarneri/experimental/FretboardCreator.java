@@ -3,7 +3,7 @@ package com.gkaraffa.guarneri.experimental;
 import com.gkaraffa.cremona.common.Pitch;
 import com.gkaraffa.cremona.common.PitchCollection;
 import com.gkaraffa.cremona.theoretical.ToneCollection;
-import com.gkaraffa.guarneri.instrument.GuitarModel;
+import com.gkaraffa.guarneri.model.instrument.GuitarModel;
 
 public class FretboardCreator {
   private static final String fret =

@@ -1,4 +1,4 @@
-package com.gkaraffa.guarneri.analysis;
+package com.gkaraffa.guarneri.model.analytic;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package com.gkaraffa.guarneri.analysis;
+package com.gkaraffa.guarneri.model.analytic;
 
 public class AnalyticCell {
   private String analyticText = null;

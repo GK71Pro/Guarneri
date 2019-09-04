@@ -1,4 +1,4 @@
-package com.gkaraffa.guarneri.instrument;
+package com.gkaraffa.guarneri.model.instrument;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.gkaraffa.guarneri.instrument;
+package com.gkaraffa.guarneri.model.instrument;
 
 import com.gkaraffa.cremona.common.Pitch;
 import com.gkaraffa.cremona.common.PitchCollection;
