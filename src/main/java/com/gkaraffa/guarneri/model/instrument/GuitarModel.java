@@ -17,6 +17,7 @@ public class GuitarModel extends InstrumentModel implements InstrumentRow, Instr
   }
 
 
+  @Override
   public Pitch[] getRow(int row) {
     if (row > this.maxLength) {
       throw new IllegalArgumentException();
@@ -32,6 +33,7 @@ public class GuitarModel extends InstrumentModel implements InstrumentRow, Instr
     return targetPitchRow;
   }
 
+  @Override
   public Pitch[] getFilteredRow(int row, ToneCollection toneFilter) {
     if (row > this.maxLength) {
       throw new IllegalArgumentException();
@@ -54,6 +56,7 @@ public class GuitarModel extends InstrumentModel implements InstrumentRow, Instr
     return targetPitchRow;
   }
 
+  @Override
   public Pitch[] getFilteredRow(int row, PitchCollection pitchFilter) {
     if (row > this.maxLength) {
       throw new IllegalArgumentException();
@@ -76,6 +79,7 @@ public class GuitarModel extends InstrumentModel implements InstrumentRow, Instr
     return targetPitchRow;
   }
 
+  @Override
   public Pitch[] getColumn(int column) {
     if (column > (strings.size() - 1)) {
       throw new IllegalArgumentException();
@@ -87,6 +91,7 @@ public class GuitarModel extends InstrumentModel implements InstrumentRow, Instr
     return targetPitchColumn;
   }
 
+  @Override
   public Pitch[] getFilteredColumn(int column, ToneCollection toneFilter) {
     if (column > (strings.size() - 1)) {
       throw new IllegalArgumentException();
@@ -109,6 +114,7 @@ public class GuitarModel extends InstrumentModel implements InstrumentRow, Instr
     return targetPitchColumn;
   }
 
+  @Override
   public Pitch[] getFilteredColumn(int column, PitchCollection pitchFilter) {
     if (column > (strings.size() - 1)) {
       throw new IllegalArgumentException();

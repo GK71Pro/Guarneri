@@ -26,7 +26,7 @@ public abstract class AnalyticModelFactory extends ModelFactory {
     modelCells[0] = this.generateHeaders(headerArray);
     
     for (int rowCounter = 1; rowCounter < depth; rowCounter++) {
-      modelCells[rowCounter] = createModelRow();
+      modelCells[rowCounter] = createModelRow(scale, toneCollection, breadth, rowCounter);
       
     }
     
@@ -44,6 +44,6 @@ public abstract class AnalyticModelFactory extends ModelFactory {
   }
   
   protected abstract String[] createHeaderArray();
-  protected abstract ModelCell[] createModelRow();
+  protected abstract ModelCell[] createModelRow(Scale scale, ToneCollection toneCollection, int breadth, int rowCounter);
 
 }

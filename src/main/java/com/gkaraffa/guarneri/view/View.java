@@ -13,6 +13,7 @@ public class View {
     return this.byteArray;
   }
   
+  @Override
   public String toString() {
     return this.viewString;
   }
