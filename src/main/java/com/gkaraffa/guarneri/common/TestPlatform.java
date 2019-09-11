@@ -5,6 +5,7 @@ import com.gkaraffa.cremona.theoretical.scale.Scale;
 import com.gkaraffa.guarneri.model.ModelFactory;
 import com.gkaraffa.guarneri.model.ModelTable;
 import com.gkaraffa.guarneri.model.analytic.IntervalAnalyticModelFactory;
+import com.gkaraffa.guarneri.model.analytic.RomanNumeralAnalyticModelFactory;
 
 public class TestPlatform {
 
@@ -14,7 +15,8 @@ public class TestPlatform {
     Helper helper = Helper.getInstance();
     Scale scale = helper.getScale("C", "Ionian");
 
-    ModelFactory modelFactory = new IntervalAnalyticModelFactory();
+    ModelFactory modelFactory = new RomanNumeralAnalyticModelFactory();
+    //ModelFactory modelFactory = new IntervalAnalyticModelFactory();
     //ModelFactory modelFactory = new ScalarAnalyticModelFactory();
     ModelTable modelTable = modelFactory.createModel(scale);
 
