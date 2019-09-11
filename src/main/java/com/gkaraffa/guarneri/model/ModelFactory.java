@@ -39,7 +39,7 @@ public abstract class ModelFactory {
     return columnWidths;
   }
 
-  private String validate(ModelCell[][] modelCells) {
+  protected String validate(ModelCell[][] modelCells) {
     if (!validateArrayPopulated(modelCells)) {
       return new String("Array is not populated.");
     }
