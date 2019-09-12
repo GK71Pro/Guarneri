@@ -22,7 +22,6 @@ public class ModelTable {
       throw new IllegalArgumentException("Request is outside of table boundary");
     }
 
-    // create new array based upon number of ROWS
     int rowCount = modelCells.length;
     ModelCell[] selectColumn = new ModelCell[rowCount];
 

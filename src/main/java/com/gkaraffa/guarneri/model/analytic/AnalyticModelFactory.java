@@ -24,12 +24,12 @@ public abstract class AnalyticModelFactory extends ModelFactory {
     ModelCell[][] modelCells = new ModelCell[depth][breadth];
 
     modelCells[0] = this.generateHeaders(headerArray);
-    
+
     for (int rowCounter = 1; rowCounter < depth; rowCounter++) {
       modelCells[rowCounter] = createModelRow(scale, toneCollection, breadth, rowCounter);
-      
+
     }
-    
+
     int columnWidths[] = this.generateColumnWidths(modelCells);
 
     ModelTable generatedTable = new ModelTable(modelCells, columnWidths);
@@ -42,8 +42,10 @@ public abstract class AnalyticModelFactory extends ModelFactory {
     throw new UnsupportedOperationException(
         "Cannot create IntervalAnalyticModel with chord as a parameter.");
   }
-  
+
   protected abstract String[] createHeaderArray();
-  protected abstract ModelCell[] createModelRow(Scale scale, ToneCollection toneCollection, int breadth, int rowCounter);
+
+  protected abstract ModelCell[] createModelRow(Scale scale, ToneCollection toneCollection,
+      int breadth, int rowCounter);
 
 }

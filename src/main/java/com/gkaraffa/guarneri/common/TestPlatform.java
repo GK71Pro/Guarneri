@@ -4,8 +4,10 @@ import com.gkaraffa.cremona.helper.Helper;
 import com.gkaraffa.cremona.theoretical.scale.Scale;
 import com.gkaraffa.guarneri.model.ModelFactory;
 import com.gkaraffa.guarneri.model.ModelTable;
-import com.gkaraffa.guarneri.model.analytic.IntervalAnalyticModelFactory;
 import com.gkaraffa.guarneri.model.analytic.RomanNumeralAnalyticModelFactory;
+import com.gkaraffa.guarneri.view.TextViewFactory;
+import com.gkaraffa.guarneri.view.View;
+import com.gkaraffa.guarneri.view.ViewFactory;
 
 public class TestPlatform {
 
@@ -14,26 +16,13 @@ public class TestPlatform {
   public static void main(String[] args) {
     Helper helper = Helper.getInstance();
     Scale scale = helper.getScale("C", "Ionian");
-
     ModelFactory modelFactory = new RomanNumeralAnalyticModelFactory();
-    //ModelFactory modelFactory = new IntervalAnalyticModelFactory();
-    //ModelFactory modelFactory = new ScalarAnalyticModelFactory();
     ModelTable modelTable = modelFactory.createModel(scale);
+    ViewFactory viewFactory = new TextViewFactory();
+    View view = viewFactory.renderView(modelTable);
 
-    int depth = modelTable.getRowCount();
-    int breadth = modelTable.getColumnCount();
-    for (int rowIndex = 0; rowIndex < depth; rowIndex++) {
-      for (int columnIndex = 0; columnIndex < breadth; columnIndex++) {
-        System.out.print(modelTable.getCell(rowIndex, columnIndex) + ", ");
-      }
-      System.out.println();
-    }
-    
-    for (int columnIndex = 0; columnIndex < breadth; columnIndex++) {
-      System.out.print(modelTable.getColumnWidth(columnIndex) + ", ");
-    }
-    System.out.println();
+    System.out.println(view.toString());
   }
-  
+
 
 }

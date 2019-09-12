@@ -14,17 +14,18 @@ public class IntervalAnalyticModelFactory extends AnalyticModelFactory {
   }
 
   @Override
-  protected ModelCell[] createModelRow(Scale scale, ToneCollection toneCollection, int breadth, int rowCounter) {
+  protected ModelCell[] createModelRow(Scale scale, ToneCollection toneCollection, int breadth,
+      int rowCounter) {
     int scalePosition = rowCounter - 1;
     Interval interval = scale.getIntervalPattern().getIntervalByLocation(scalePosition);
     IntervalNumber intervalNumber = interval.getIntervalNumber();
     ModelCell[] modelCells = new ModelCell[breadth];
-    
+
     modelCells[0] = new ModelCell(intervalNumber.getAbbrev());
     modelCells[1] = new ModelCell(intervalNumber.getDiatonicFunction());
     modelCells[2] = new ModelCell(interval.getText());
     modelCells[3] = new ModelCell(scale.getToneCollection().getTone(scalePosition).getText());
-    
+
     return modelCells;
   }
 }

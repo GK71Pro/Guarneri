@@ -8,11 +8,11 @@ public class View {
     this.viewString = viewString;
     this.byteArray = byteArray;
   }
-  
+
   public byte[] getByteArray() {
     return this.byteArray;
   }
-  
+
   @Override
   public String toString() {
     return this.viewString;

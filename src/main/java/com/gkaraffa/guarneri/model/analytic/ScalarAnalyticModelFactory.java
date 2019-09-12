@@ -13,21 +13,21 @@ public class ScalarAnalyticModelFactory extends AnalyticModelFactory {
   }
 
   @Override
-  protected ModelCell[] createModelRow(Scale scale, ToneCollection toneCollection, int breadth, int rowCounter) {
+  protected ModelCell[] createModelRow(Scale scale, ToneCollection toneCollection, int breadth,
+      int rowCounter) {
     int scalePosition = rowCounter - 1;
-//    ToneCollection toneCollection = scale.getToneCollection();
     ModelCell[] modelCells = new ModelCell[breadth];
-    
-    
+
     modelCells[0] = new ModelCell(Integer.toString(rowCounter));
     modelCells[1] = new ModelCell(toneCollection.getTone(scalePosition).toString());
-    modelCells[2] = new ModelCell(getSteps(TonalSpectrum.measureDistance(
-        toneCollection.getTone(scalePosition), toneCollection.getTone(scalePosition + 1))));
-        
+    modelCells[2] =
+        new ModelCell(getSteps(TonalSpectrum.measureDistance(toneCollection.getTone(scalePosition),
+            toneCollection.getTone(scalePosition + 1))));
+
     return modelCells;
   }
 
-  private  String getSteps(int steps) {
+  private String getSteps(int steps) {
     StringBuilder sB = new StringBuilder();
     int wholeSteps = steps / 2;
     int halfSteps = steps % 2;
