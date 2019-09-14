@@ -6,10 +6,10 @@ import com.gkaraffa.cremona.common.Pitch;
 import com.gkaraffa.cremona.common.PitchCollection;
 import com.gkaraffa.cremona.theoretical.ToneCollection;
 
-public class GuitarModel extends InstrumentModel implements InstrumentRow, InstrumentColumn {
+public class OldGuitarModel extends OldInstrumentModel implements OldInstrumentRow, OldInstrumentColumn {
   private ArrayList<ArrayList<Pitch>> strings = new ArrayList<ArrayList<Pitch>>();
 
-  public GuitarModel(ArrayList<ArrayList<Pitch>> strings, int fretCount) {
+  public OldGuitarModel(ArrayList<ArrayList<Pitch>> strings, int fretCount) {
     super();
     this.strings = strings;
     this.maxLength = fretCount;

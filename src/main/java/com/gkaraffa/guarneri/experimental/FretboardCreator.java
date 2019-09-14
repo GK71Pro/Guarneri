@@ -3,7 +3,7 @@ package com.gkaraffa.guarneri.experimental;
 import com.gkaraffa.cremona.common.Pitch;
 import com.gkaraffa.cremona.common.PitchCollection;
 import com.gkaraffa.cremona.theoretical.ToneCollection;
-import com.gkaraffa.guarneri.model.instrument.GuitarModel;
+import com.gkaraffa.guarneri.model.instrument.OldGuitarModel;
 
 public class FretboardCreator {
   private static final String fret =
@@ -11,7 +11,7 @@ public class FretboardCreator {
 
   public FretboardCreator() {}
 
-  public static String createFretboardText(GuitarModel guitarModel) {
+  public static String createFretboardText(OldGuitarModel guitarModel) {
     StringBuilder sB = new StringBuilder();
     int numStrings = guitarModel.getMaxWidth();
     int numFrets = guitarModel.getMaxLength();
@@ -33,7 +33,7 @@ public class FretboardCreator {
     return (sB.toString());
   }
 
-  public static String createFretboardCSV(GuitarModel guitarModel) {
+  public static String createFretboardCSV(OldGuitarModel guitarModel) {
     StringBuilder sB = new StringBuilder();
     int numStrings = guitarModel.getMaxWidth();
     int numFrets = guitarModel.getMaxLength();
@@ -54,7 +54,7 @@ public class FretboardCreator {
     return (sB.toString());
   }
 
-  public static String createFormattedFretboardText(GuitarModel guitarModel,
+  public static String createFormattedFretboardText(OldGuitarModel guitarModel,
       ToneCollection toneCollection) {
     StringBuilder sB = new StringBuilder();
     int numStrings = guitarModel.getMaxWidth();
@@ -77,7 +77,7 @@ public class FretboardCreator {
     return (sB.toString());
   }
 
-  public static String createFormattedFretboardCSV(GuitarModel guitarModel,
+  public static String createFormattedFretboardCSV(OldGuitarModel guitarModel,
       ToneCollection toneCollection) {
     StringBuilder sB = new StringBuilder();
     int numStrings = guitarModel.getMaxWidth();
@@ -99,7 +99,7 @@ public class FretboardCreator {
     return (sB.toString());
   }
 
-  public static String createFormattedFretboardText(GuitarModel guitarModel,
+  public static String createFormattedFretboardText(OldGuitarModel guitarModel,
       PitchCollection pitchCollection) {
     StringBuilder sB = new StringBuilder();
     int numStrings = guitarModel.getMaxWidth();
@@ -122,7 +122,7 @@ public class FretboardCreator {
     return (sB.toString());
   }
 
-  public static String createFormattedFretboardCSV(GuitarModel guitarModel,
+  public static String createFormattedFretboardCSV(OldGuitarModel guitarModel,
       PitchCollection pitchCollection) {
     StringBuilder sB = new StringBuilder();
     int numStrings = guitarModel.getMaxWidth();

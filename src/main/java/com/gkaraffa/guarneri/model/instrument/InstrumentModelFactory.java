@@ -1,11 +1,7 @@
 package com.gkaraffa.guarneri.model.instrument;
 
-public abstract class InstrumentModelFactory {
+import com.gkaraffa.guarneri.model.ModelFactory;
 
-  public InstrumentModelFactory() {}
-
-  public abstract InstrumentModel createInstrumentModel();
-
-  public abstract InstrumentModel createInstrumentModel(InstrumentModelParameterObject iMPO);
+public abstract class InstrumentModelFactory extends ModelFactory{
 
 }

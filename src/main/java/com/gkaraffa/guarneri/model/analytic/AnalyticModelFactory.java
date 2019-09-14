@@ -31,6 +31,11 @@ public abstract class AnalyticModelFactory extends ModelFactory {
     }
 
     int columnWidths[] = this.generateColumnWidths(modelCells);
+    
+    String message = this.validate(modelCells, columnWidths);
+    if(message != null) {
+      throw new IllegalArgumentException(message);
+    }
 
     ModelTable generatedTable = new ModelTable(modelCells, columnWidths);
 

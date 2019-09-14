@@ -39,7 +39,7 @@ public abstract class ModelFactory {
     return columnWidths;
   }
 
-  protected String validate(ModelCell[][] modelCells) {
+  protected String validate(ModelCell[][] modelCells, int[] columnWidths) {
     if (!validateArrayPopulated(modelCells)) {
       return new String("Array is not populated.");
     }
@@ -48,6 +48,9 @@ public abstract class ModelFactory {
       return new String("Arrays are not balanced.");
     }
 
+    if (!validateContentAndWidthSync(modelCells, columnWidths)) {
+      return new String("Arrays are not balanced.");
+    }
     return null;
   }
 
@@ -76,7 +79,7 @@ public abstract class ModelFactory {
     return true;
   }
 
-  /*
+  
   private boolean validateContentAndWidthSync(ModelCell[][] modelCells, int[] columnWidths) {
     int actualColumns = modelCells[0].length;
     
@@ -86,5 +89,5 @@ public abstract class ModelFactory {
     
     return true;
   }
-  */
+  
 }

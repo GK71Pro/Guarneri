@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import com.gkaraffa.cremona.common.Pitch;
 
-public class GuitarModelParameterObject extends InstrumentModelParameterObject {
+public class OldGuitarModelParameterObject extends OldInstrumentModelParameterObject {
   private int numberOfFrets;
   private ArrayList<Pitch> openStringPitches = new ArrayList<Pitch>();
 
-  public GuitarModelParameterObject() {
+  public OldGuitarModelParameterObject() {
     super();
   }
     

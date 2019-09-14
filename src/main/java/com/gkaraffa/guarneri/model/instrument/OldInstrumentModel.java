@@ -1,10 +1,10 @@
 package com.gkaraffa.guarneri.model.instrument;
 
-public abstract class InstrumentModel implements InstrumentRow, InstrumentColumn {
+public abstract class OldInstrumentModel implements OldInstrumentRow, OldInstrumentColumn {
   protected int maxWidth;
   protected int maxLength;
 
-  public InstrumentModel() {}
+  public OldInstrumentModel() {}
 
   public int getMaxWidth() {
     return maxWidth;
