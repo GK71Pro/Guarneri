@@ -1,12 +1,12 @@
-package com.gkaraffa.guarneri.view;
+package com.gkaraffa.guarneri.outputform;
 
-import com.gkaraffa.guarneri.model.ModelCell;
-import com.gkaraffa.guarneri.model.ModelTable;
+import com.gkaraffa.guarneri.view.ViewCell;
+import com.gkaraffa.guarneri.view.ViewTable;
 
-public class TextViewFactory extends ViewFactory {
+public class TextOutputFormFactory extends OutputFormFactory {
 
   @Override
-  public View renderView(ModelTable modelTable) {
+  public OutputForm renderView(ViewTable modelTable) {
     StringBuilder sB = new StringBuilder();
     int fieldSpace = determineFieldSpace(modelTable);
 
@@ -16,12 +16,12 @@ public class TextViewFactory extends ViewFactory {
     sB.append("\n");
 
     String viewString = sB.toString();
-    View outputView = new View(viewString, viewString.getBytes());
+    OutputForm outputView = new OutputForm(viewString, viewString.getBytes());
 
     return outputView;
   }
 
-  private int determineFieldSpace(ModelTable modelTable) {
+  private int determineFieldSpace(ViewTable modelTable) {
     int fieldCount = modelTable.getColumnCount();
     int fieldSpace = fieldCount + 1;
 
@@ -32,7 +32,7 @@ public class TextViewFactory extends ViewFactory {
     return fieldSpace;
   }
 
-  private String renderHeader(int fieldSpace, ModelTable modelTable) {
+  private String renderHeader(int fieldSpace, ViewTable modelTable) {
     StringBuilder sB = new StringBuilder();
 
     sB.append(renderBar(fieldSpace) + "\n");
@@ -42,15 +42,15 @@ public class TextViewFactory extends ViewFactory {
     return sB.toString();
   }
 
-  private String renderBody(int fieldSpace, ModelTable modelTable) {
+  private String renderBody(int fieldSpace, ViewTable modelTable) {
     StringBuilder sB = new StringBuilder();
     int numRows = modelTable.getRowCount();
 
     for (int index = 1; index < numRows; index++) {
-      ModelCell[] modelCells = modelTable.getRow(index);
+      ViewCell[] modelCells = modelTable.getRow(index);
       int columnCount = 0;
 
-      for (ModelCell modelCell : modelCells) {
+      for (ViewCell modelCell : modelCells) {
         sB.append("| ");
         sB.append(
             String.format(createFormatString(modelTable.getColumnWidth(columnCount)), modelCell));
@@ -77,8 +77,8 @@ public class TextViewFactory extends ViewFactory {
     return sB.toString();
   }
 
-  private String renderTitles(ModelTable modelTable) {
-    ModelCell[] headerCells = modelTable.getRow(0);
+  private String renderTitles(ViewTable modelTable) {
+    ViewCell[] headerCells = modelTable.getRow(0);
     int numCols = modelTable.getColumnCount();
     StringBuilder sB = new StringBuilder();
 

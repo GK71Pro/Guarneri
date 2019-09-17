@@ -1,15 +1,15 @@
-package com.gkaraffa.guarneri.model;
+package com.gkaraffa.guarneri.view;
 
-public class ModelTable {
-  private ModelCell[][] modelCells;
+public class ViewTable {
+  private ViewCell[][] modelCells;
   private int[] columnWidths;
 
-  public ModelTable(ModelCell[][] modelCells, int[] columnWidths) {
+  public ViewTable(ViewCell[][] modelCells, int[] columnWidths) {
     this.modelCells = modelCells;
     this.columnWidths = columnWidths;
   }
 
-  public ModelCell getCell(int row, int column) throws IllegalArgumentException {
+  public ViewCell getCell(int row, int column) throws IllegalArgumentException {
     if (!isInBounds(row, column)) {
       throw new IllegalArgumentException("Request is outside of table boundary");
     }
@@ -17,13 +17,13 @@ public class ModelTable {
     return modelCells[row][column];
   }
 
-  public ModelCell[] getColumn(int column) throws IllegalArgumentException {
+  public ViewCell[] getColumn(int column) throws IllegalArgumentException {
     if (!isInBounds(0, column)) {
       throw new IllegalArgumentException("Request is outside of table boundary");
     }
 
     int rowCount = modelCells.length;
-    ModelCell[] selectColumn = new ModelCell[rowCount];
+    ViewCell[] selectColumn = new ViewCell[rowCount];
 
     for (int index = 0; index < rowCount; index++) {
       selectColumn[index] = modelCells[index][column];
@@ -32,7 +32,7 @@ public class ModelTable {
     return selectColumn;
   }
 
-  public ModelCell[] getRow(int row) throws IllegalArgumentException {
+  public ViewCell[] getRow(int row) throws IllegalArgumentException {
     if (!isInBounds(row, 0)) {
       throw new IllegalArgumentException("Request is outside of table boundary");
     }

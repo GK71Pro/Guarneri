@@ -1,12 +1,12 @@
-package com.gkaraffa.guarneri.view;
+package com.gkaraffa.guarneri.outputform;
 
-import com.gkaraffa.guarneri.model.ModelCell;
-import com.gkaraffa.guarneri.model.ModelTable;
+import com.gkaraffa.guarneri.view.ViewCell;
+import com.gkaraffa.guarneri.view.ViewTable;
 
-public class CSVViewFactory extends ViewFactory {
+public class CSVOutputFormFactory extends OutputFormFactory {
 
   @Override
-  public View renderView(ModelTable modelTable) {
+  public OutputForm renderView(ViewTable modelTable) {
     StringBuilder sB = new StringBuilder();
 
     sB.append(this.renderHeader(modelTable));
@@ -14,12 +14,12 @@ public class CSVViewFactory extends ViewFactory {
     sB.append("\n");
 
     String viewString = sB.toString();
-    View outputView = new View(viewString, viewString.getBytes());
+    OutputForm outputView = new OutputForm(viewString, viewString.getBytes());
 
     return outputView;
   }
 
-  private String renderHeader(ModelTable modelTable) {
+  private String renderHeader(ViewTable modelTable) {
     StringBuilder sB = new StringBuilder();
 
     sB.append(renderTitles(modelTable) + "\n");
@@ -27,11 +27,11 @@ public class CSVViewFactory extends ViewFactory {
     return sB.toString();
   }
 
-  private String renderTitles(ModelTable modelTable) {
-    ModelCell[] headerCells = modelTable.getRow(0);
+  private String renderTitles(ViewTable modelTable) {
+    ViewCell[] headerCells = modelTable.getRow(0);
     StringBuilder sB = new StringBuilder();
 
-    for (ModelCell headerCell : headerCells) {
+    for (ViewCell headerCell : headerCells) {
       sB.append(headerCell);
       sB.append(", ");
     }
@@ -41,14 +41,14 @@ public class CSVViewFactory extends ViewFactory {
     return sB.toString();
   }
 
-  private String renderBody(ModelTable modelTable) {
+  private String renderBody(ViewTable modelTable) {
     StringBuilder sB = new StringBuilder();
     int numRows = modelTable.getRowCount();
 
     for (int index = 1; index < numRows; index++) {
-      ModelCell[] modelCells = modelTable.getRow(index);
+      ViewCell[] modelCells = modelTable.getRow(index);
 
-      for (ModelCell modelCell : modelCells) {
+      for (ViewCell modelCell : modelCells) {
         sB.append(modelCell);
         sB.append(", ");
       }

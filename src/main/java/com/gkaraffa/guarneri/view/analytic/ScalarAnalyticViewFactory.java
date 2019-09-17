@@ -1,11 +1,11 @@
-package com.gkaraffa.guarneri.model.analytic;
+package com.gkaraffa.guarneri.view.analytic;
 
 import com.gkaraffa.cremona.theoretical.TonalSpectrum;
 import com.gkaraffa.cremona.theoretical.ToneCollection;
 import com.gkaraffa.cremona.theoretical.scale.Scale;
-import com.gkaraffa.guarneri.model.ModelCell;
+import com.gkaraffa.guarneri.view.ViewCell;
 
-public class ScalarAnalyticModelFactory extends AnalyticModelFactory {
+public class ScalarAnalyticViewFactory extends AnalyticViewFactory {
 
   @Override
   protected String[] createHeaderArray() {
@@ -13,15 +13,15 @@ public class ScalarAnalyticModelFactory extends AnalyticModelFactory {
   }
 
   @Override
-  protected ModelCell[] createModelRow(Scale scale, ToneCollection toneCollection, int breadth,
+  protected ViewCell[] createModelRow(Scale scale, ToneCollection toneCollection, int breadth,
       int rowCounter) {
     int scalePosition = rowCounter - 1;
-    ModelCell[] modelCells = new ModelCell[breadth];
+    ViewCell[] modelCells = new ViewCell[breadth];
 
-    modelCells[0] = new ModelCell(Integer.toString(rowCounter));
-    modelCells[1] = new ModelCell(toneCollection.getTone(scalePosition).toString());
+    modelCells[0] = new ViewCell(Integer.toString(rowCounter));
+    modelCells[1] = new ViewCell(toneCollection.getTone(scalePosition).toString());
     modelCells[2] =
-        new ModelCell(getSteps(TonalSpectrum.measureDistance(toneCollection.getTone(scalePosition),
+        new ViewCell(getSteps(TonalSpectrum.measureDistance(toneCollection.getTone(scalePosition),
             toneCollection.getTone(scalePosition + 1))));
 
     return modelCells;

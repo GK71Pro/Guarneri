@@ -1,27 +1,27 @@
-package com.gkaraffa.guarneri.model.analytic;
+package com.gkaraffa.guarneri.view.analytic;
 
 import com.gkaraffa.cremona.theoretical.ToneCollection;
 import com.gkaraffa.cremona.theoretical.chord.Chord;
 import com.gkaraffa.cremona.theoretical.scale.Scale;
-import com.gkaraffa.guarneri.model.ModelCell;
-import com.gkaraffa.guarneri.model.ModelFactory;
-import com.gkaraffa.guarneri.model.ModelTable;
+import com.gkaraffa.guarneri.view.ViewCell;
+import com.gkaraffa.guarneri.view.ViewFactory;
+import com.gkaraffa.guarneri.view.ViewTable;
 
-public abstract class AnalyticModelFactory extends ModelFactory {
+public abstract class AnalyticViewFactory extends ViewFactory {
 
   @Override
-  public ModelTable createModel() {
+  public ViewTable createModel() {
     throw new UnsupportedOperationException(
         "Cannot create IntervalAnalyticModel without parameters.");
   }
 
   @Override
-  public ModelTable createModel(Scale scale) {
+  public ViewTable createModel(Scale scale) {
     String headerArray[] = createHeaderArray();
     ToneCollection toneCollection = scale.getToneCollection();
     int depth = toneCollection.getSize() + 1;
     int breadth = headerArray.length;
-    ModelCell[][] modelCells = new ModelCell[depth][breadth];
+    ViewCell[][] modelCells = new ViewCell[depth][breadth];
 
     modelCells[0] = this.generateHeaders(headerArray);
 
@@ -37,20 +37,20 @@ public abstract class AnalyticModelFactory extends ModelFactory {
       throw new IllegalArgumentException(message);
     }
 
-    ModelTable generatedTable = new ModelTable(modelCells, columnWidths);
+    ViewTable generatedTable = new ViewTable(modelCells, columnWidths);
 
     return generatedTable;
   }
 
   @Override
-  public ModelTable createModel(Chord chord) {
+  public ViewTable createModel(Chord chord) {
     throw new UnsupportedOperationException(
         "Cannot create IntervalAnalyticModel with chord as a parameter.");
   }
 
   protected abstract String[] createHeaderArray();
 
-  protected abstract ModelCell[] createModelRow(Scale scale, ToneCollection toneCollection,
+  protected abstract ViewCell[] createModelRow(Scale scale, ToneCollection toneCollection,
       int breadth, int rowCounter);
 
 }

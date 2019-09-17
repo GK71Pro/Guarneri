@@ -1,25 +1,25 @@
-package com.gkaraffa.guarneri.model.instrument;
+package com.gkaraffa.guarneri.view.instrument;
 
 import com.gkaraffa.cremona.theoretical.chord.Chord;
 import com.gkaraffa.cremona.theoretical.scale.Scale;
-import com.gkaraffa.guarneri.model.ModelTable;
+import com.gkaraffa.guarneri.view.ViewTable;
 
-public class GuitarModelFactory extends InstrumentModelFactory {
+public class GuitarViewFactory extends InstrumentViewFactory {
 
   @Override
-  public ModelTable createModel() {
+  public ViewTable createModel() {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public ModelTable createModel(Scale scale) {
+  public ViewTable createModel(Scale scale) {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public ModelTable createModel(Chord chord) {
+  public ViewTable createModel(Chord chord) {
     // TODO Auto-generated method stub
     return null;
   }

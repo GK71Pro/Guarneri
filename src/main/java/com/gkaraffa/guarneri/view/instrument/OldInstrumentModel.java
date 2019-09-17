@@ -1,4 +1,4 @@
-package com.gkaraffa.guarneri.model.instrument;
+package com.gkaraffa.guarneri.view.instrument;
 
 public abstract class OldInstrumentModel implements OldInstrumentRow, OldInstrumentColumn {
   protected int maxWidth;

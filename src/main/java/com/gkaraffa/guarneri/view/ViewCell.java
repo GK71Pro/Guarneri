@@ -1,11 +1,11 @@
-package com.gkaraffa.guarneri.model;
+package com.gkaraffa.guarneri.view;
 
-public class ModelCell {
+public class ViewCell {
   private String cellText = null;
 
-  public ModelCell() {}
+  public ViewCell() {}
 
-  public ModelCell(String cellText) {
+  public ViewCell(String cellText) {
     this.cellText = cellText;
   }
 
