@@ -1,14 +1,14 @@
-package com.gkaraffa.guarneri.view.instrument;
+package com.gkaraffa.guarneri.instrument;
 
 import java.util.ArrayList;
 
 import com.gkaraffa.cremona.common.Pitch;
 
-public class OldGuitarModelParameterObject extends OldInstrumentModelParameterObject {
+public class GuitarModelParameterObject extends InstrumentModelParameterObject {
   private int numberOfFrets;
   private ArrayList<Pitch> openStringPitches = new ArrayList<Pitch>();
 
-  public OldGuitarModelParameterObject() {
+  public GuitarModelParameterObject() {
     super();
   }
     

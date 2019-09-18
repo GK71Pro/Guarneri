@@ -1,4 +1,4 @@
-package com.gkaraffa.guarneri.view.instrument;
+package com.gkaraffa.guarneri.instrument;
 
 import java.util.ArrayList;
 
@@ -6,10 +6,10 @@ import com.gkaraffa.cremona.common.Pitch;
 import com.gkaraffa.cremona.common.PitchCollection;
 import com.gkaraffa.cremona.theoretical.ToneCollection;
 
-public class OldGuitarModel extends OldInstrumentModel implements OldInstrumentRow, OldInstrumentColumn {
+public class GuitarModel extends InstrumentModel implements InstrumentRow, InstrumentColumn {
   private ArrayList<ArrayList<Pitch>> strings = new ArrayList<ArrayList<Pitch>>();
 
-  public OldGuitarModel(ArrayList<ArrayList<Pitch>> strings, int fretCount) {
+  public GuitarModel(ArrayList<ArrayList<Pitch>> strings, int fretCount) {
     super();
     this.strings = strings;
     this.maxLength = fretCount;

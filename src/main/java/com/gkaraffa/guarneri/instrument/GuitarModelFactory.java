@@ -1,4 +1,4 @@
-package com.gkaraffa.guarneri.view.instrument;
+package com.gkaraffa.guarneri.instrument;
 
 import java.util.ArrayList;
 
@@ -6,14 +6,14 @@ import com.gkaraffa.cremona.common.Pitch;
 import com.gkaraffa.cremona.theoretical.TonalSpectrum;
 import com.gkaraffa.cremona.theoretical.Tone;
 
-public class OldGuitarModelFactory extends OldInstrumentModelFactory {
+public class GuitarModelFactory extends InstrumentModelFactory {
 
-  public OldGuitarModelFactory() {
+  public GuitarModelFactory() {
     super();
   }
 
   @Override
-  public OldInstrumentModel createInstrumentModel() {
+  public InstrumentModel createInstrumentModel() {
     int fretCount = 24;
     ArrayList<ArrayList<Pitch>> guitarStrings = new ArrayList<ArrayList<Pitch>>();
     
@@ -24,16 +24,16 @@ public class OldGuitarModelFactory extends OldInstrumentModelFactory {
     guitarStrings.add(createStringNotes(new Pitch(Tone.B, 3), fretCount));
     guitarStrings.add(createStringNotes(new Pitch(Tone.E, 4), fretCount));
 
-    return new OldGuitarModel(guitarStrings, fretCount);
+    return new GuitarModel(guitarStrings, fretCount);
   }
 
   @Override
-  public OldInstrumentModel createInstrumentModel(OldInstrumentModelParameterObject iMPO) {
+  public InstrumentModel createInstrumentModel(InstrumentModelParameterObject iMPO) {
     int fretCount;
     ArrayList<Pitch> parmOpenStringPitches = new ArrayList<Pitch>();
 
-    if (iMPO instanceof OldGuitarModelParameterObject) {
-      OldGuitarModelParameterObject gMPO = (OldGuitarModelParameterObject) iMPO;
+    if (iMPO instanceof GuitarModelParameterObject) {
+      GuitarModelParameterObject gMPO = (GuitarModelParameterObject) iMPO;
       fretCount = gMPO.getNumberOfFrets();
       parmOpenStringPitches = gMPO.getOpenStringPitches();
     }
@@ -48,7 +48,7 @@ public class OldGuitarModelFactory extends OldInstrumentModelFactory {
       guitarStrings.add(createStringNotes(parmOpenStringPitches.get(index), fretCount));
     }
     
-    return new OldGuitarModel(guitarStrings, fretCount);
+    return new GuitarModel(guitarStrings, fretCount);
   }
 
   private ArrayList<Pitch> createStringNotes(Pitch pitch, int numberFrets) {
