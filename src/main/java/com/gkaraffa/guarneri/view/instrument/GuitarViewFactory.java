@@ -1,33 +1,31 @@
 package com.gkaraffa.guarneri.view.instrument;
 
-import com.gkaraffa.cremona.theoretical.chord.Chord;
-import com.gkaraffa.cremona.theoretical.scale.Scale;
+import com.gkaraffa.cremona.common.Pitch;
+import com.gkaraffa.guarneri.instrument.GuitarModelFactory;
 import com.gkaraffa.guarneri.instrument.InstrumentModel;
-import com.gkaraffa.guarneri.view.ViewTable;
+import com.gkaraffa.guarneri.instrument.InstrumentModelFactory;
+import com.gkaraffa.guarneri.view.ViewCell;
 
 public class GuitarViewFactory extends InstrumentViewFactory {
 
-  public GuitarViewFactory(InstrumentModel instrumentModel) {
-    super(instrumentModel);
-    // TODO Auto-generated constructor stub
+  @Override
+  protected InstrumentModel createInstrumentModel() {
+    InstrumentModelFactory instrumentModelFactory = new GuitarModelFactory();
+    InstrumentModel instrumentModel = instrumentModelFactory.createInstrumentModel();
+
+    return instrumentModel;
   }
 
   @Override
-  public ViewTable createModel() {
-    // TODO Auto-generated method stub
-    return null;
-  }
+  protected ViewCell[] createModelRow(Pitch[] rowPitches) {
+    ViewCell[] modelRow = new ViewCell[rowPitches.length];
+    int counter = 0;
 
-  @Override
-  public ViewTable createModel(Scale scale) {
-    // TODO Auto-generated method stub
-    return null;
+    for(Pitch pitch: rowPitches) {
+      modelRow[counter] = new ViewCell(pitch.getText());
+      counter++;
+    }
+    
+    return modelRow;
   }
-
-  @Override
-  public ViewTable createModel(Chord chord) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
 }

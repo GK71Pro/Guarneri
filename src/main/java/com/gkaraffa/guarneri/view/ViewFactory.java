@@ -10,18 +10,6 @@ public abstract class ViewFactory {
 
   public abstract ViewTable createModel(Chord chord);
 
-  protected ViewCell[] generateHeaders(String[] headerStrings) {
-    ViewCell[] headerCells = new ViewCell[headerStrings.length];
-    int counter = 0;
-
-    for (String header : headerStrings) {
-      headerCells[counter] = new ViewCell(header);
-      counter++;
-    }
-
-    return headerCells;
-  }
-
   protected int[] generateColumnWidths(ViewCell[][] modelCells) {
     int breadth = modelCells[0].length;
     int columnWidths[] = new int[breadth];

@@ -27,13 +27,12 @@ public abstract class AnalyticViewFactory extends ViewFactory {
 
     for (int rowCounter = 1; rowCounter < depth; rowCounter++) {
       modelCells[rowCounter] = createModelRow(scale, toneCollection, breadth, rowCounter);
-
     }
 
     int columnWidths[] = this.generateColumnWidths(modelCells);
-    
+
     String message = this.validate(modelCells, columnWidths);
-    if(message != null) {
+    if (message != null) {
       throw new IllegalArgumentException(message);
     }
 
@@ -53,4 +52,15 @@ public abstract class AnalyticViewFactory extends ViewFactory {
   protected abstract ViewCell[] createModelRow(Scale scale, ToneCollection toneCollection,
       int breadth, int rowCounter);
 
+  private ViewCell[] generateHeaders(String[] headerStrings) {
+    ViewCell[] headerCells = new ViewCell[headerStrings.length];
+    int counter = 0;
+
+    for (String header : headerStrings) {
+      headerCells[counter] = new ViewCell(header);
+      counter++;
+    }
+
+    return headerCells;
+  }
 }
