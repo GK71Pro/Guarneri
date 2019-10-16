@@ -28,13 +28,14 @@ public class RomanNumeral {
   public String getText() {
     return text;
   }
-  
+
   @Override
   public String toString() {
     return text;
   }
 
-  public static RomanNumeral createRomanNumeral(DiatonicScale diatonicScale, int position, int toneCount) {
+  public static RomanNumeral createRomanNumeral(DiatonicScale diatonicScale, int position,
+      int toneCount) {
     // get interval
     Interval interval = diatonicScale.getIntervalPattern().getIntervalByLocation(position);
 
@@ -50,8 +51,7 @@ public class RomanNumeral {
 
   }
 
-  private static String evaluate(Interval interval, Chord chord)
-      throws IllegalArgumentException {
+  private static String evaluate(Interval interval, Chord chord) throws IllegalArgumentException {
     String raw = null;
 
     switch (interval.getIntervalNumber()) {

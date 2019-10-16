@@ -1,8 +1,5 @@
 package com.gkaraffa.guarneri.view;
 
-import com.gkaraffa.cremona.theoretical.chord.Chord;
-import com.gkaraffa.cremona.theoretical.scale.Scale;
-
 public abstract class ViewFactory {
   public abstract ViewTable createView();
 
@@ -65,15 +62,15 @@ public abstract class ViewFactory {
     return true;
   }
 
-  
+
   private boolean validateContentAndWidthSync(ViewCell[][] viewCells, int[] columnWidths) {
     int actualColumns = viewCells[0].length;
-    
+
     if (actualColumns != columnWidths.length) {
       return false;
     }
-    
+
     return true;
   }
-  
+
 }

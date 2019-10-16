@@ -4,7 +4,7 @@ import com.gkaraffa.cremona.theoretical.ToneGroupObject;
 
 public class ViewQuery {
   private ToneGroupObject toneGroupObject;
-  
+
   public ViewQuery(ToneGroupObject toneGroupObject) {
     this.toneGroupObject = toneGroupObject;
   }

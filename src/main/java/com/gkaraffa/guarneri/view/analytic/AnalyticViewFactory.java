@@ -2,7 +2,6 @@ package com.gkaraffa.guarneri.view.analytic;
 
 import com.gkaraffa.cremona.theoretical.ToneCollection;
 import com.gkaraffa.cremona.theoretical.ToneGroupObject;
-import com.gkaraffa.cremona.theoretical.chord.Chord;
 import com.gkaraffa.cremona.theoretical.scale.Scale;
 import com.gkaraffa.guarneri.view.ViewCell;
 import com.gkaraffa.guarneri.view.ViewFactory;
@@ -26,8 +25,7 @@ public abstract class AnalyticViewFactory extends ViewFactory {
       return this.generateByScale(scale);
     }
     else {
-      throw new UnsupportedOperationException(
-          "Unsupported Query");
+      throw new UnsupportedOperationException("Unsupported Query");
     }
   }
   
