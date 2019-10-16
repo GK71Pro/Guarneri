@@ -1,22 +1,37 @@
 package com.gkaraffa.guarneri.view.analytic;
 
 import com.gkaraffa.cremona.theoretical.ToneCollection;
+import com.gkaraffa.cremona.theoretical.ToneGroupObject;
 import com.gkaraffa.cremona.theoretical.chord.Chord;
 import com.gkaraffa.cremona.theoretical.scale.Scale;
 import com.gkaraffa.guarneri.view.ViewCell;
 import com.gkaraffa.guarneri.view.ViewFactory;
+import com.gkaraffa.guarneri.view.ViewQuery;
 import com.gkaraffa.guarneri.view.ViewTable;
 
 public abstract class AnalyticViewFactory extends ViewFactory {
 
   @Override
-  public ViewTable createModel() {
+  public ViewTable createView() {
     throw new UnsupportedOperationException(
         "Cannot create IntervalAnalyticModel without parameters.");
   }
-
+  
   @Override
-  public ViewTable createModel(Scale scale) {
+  public ViewTable createView(ViewQuery viewQuery) {
+    ToneGroupObject toneGroupObject = viewQuery.getToneGroupObject();
+    
+    if (toneGroupObject instanceof Scale) {
+      Scale scale = (Scale) toneGroupObject;
+      return this.generateByScale(scale);
+    }
+    else {
+      throw new UnsupportedOperationException(
+          "Unsupported Query");
+    }
+  }
+  
+  private ViewTable generateByScale(Scale scale) {
     String headerArray[] = createHeaderArray();
     ToneCollection toneCollection = scale.getToneCollection();
     int depth = toneCollection.getSize() + 1;
@@ -41,11 +56,6 @@ public abstract class AnalyticViewFactory extends ViewFactory {
     return generatedTable;
   }
 
-  @Override
-  public ViewTable createModel(Chord chord) {
-    throw new UnsupportedOperationException(
-        "Cannot create IntervalAnalyticModel with chord as a parameter.");
-  }
 
   protected abstract String[] createHeaderArray();
 
@@ -63,4 +73,6 @@ public abstract class AnalyticViewFactory extends ViewFactory {
 
     return headerCells;
   }
+  
+
 }

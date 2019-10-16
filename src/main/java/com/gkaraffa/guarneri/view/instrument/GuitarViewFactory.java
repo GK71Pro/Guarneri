@@ -21,11 +21,16 @@ public class GuitarViewFactory extends InstrumentViewFactory {
     ViewCell[] modelRow = new ViewCell[rowPitches.length];
     int counter = 0;
 
-    for(Pitch pitch: rowPitches) {
-      modelRow[counter] = new ViewCell(pitch.getText());
+    for (Pitch pitch : rowPitches) {
+      if (pitch == null) {
+        modelRow[counter] = new ViewCell("");
+      }
+      else {
+        modelRow[counter] = new ViewCell(pitch.getText());
+      }
       counter++;
     }
-    
+
     return modelRow;
   }
 }

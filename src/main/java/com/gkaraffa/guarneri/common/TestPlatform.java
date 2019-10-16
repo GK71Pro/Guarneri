@@ -7,6 +7,7 @@ import com.gkaraffa.guarneri.outputform.OutputForm;
 import com.gkaraffa.guarneri.outputform.OutputFormFactory;
 import com.gkaraffa.guarneri.outputform.TabularTextOutputFormFactory;
 import com.gkaraffa.guarneri.view.ViewFactory;
+import com.gkaraffa.guarneri.view.ViewQuery;
 import com.gkaraffa.guarneri.view.ViewTable;
 import com.gkaraffa.guarneri.view.analytic.RomanNumeralAnalyticViewFactory;
 import com.gkaraffa.guarneri.view.instrument.GuitarViewFactory;
@@ -19,7 +20,7 @@ public class TestPlatform {
     Helper helper = Helper.getInstance();
     Scale scale = helper.getScale("C", "Ionian");
     ViewFactory modelFactory = new RomanNumeralAnalyticViewFactory();
-    ViewTable modelTable = modelFactory.createModel(scale);
+    ViewTable modelTable = modelFactory.createView(new ViewQuery(scale));
     OutputFormFactory viewFactory = new TabularTextOutputFormFactory();
     OutputForm view = viewFactory.renderView(modelTable);
 
@@ -27,7 +28,7 @@ public class TestPlatform {
 
 
     modelFactory = new GuitarViewFactory();
-    modelTable = modelFactory.createModel();
+    modelTable = modelFactory.createView(new ViewQuery(scale));
     viewFactory = new GridTextOutputFormFactory();
     view = viewFactory.renderView(modelTable);
 
