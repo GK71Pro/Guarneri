@@ -14,6 +14,23 @@ import com.gkaraffa.guarneri.view.ViewTable;
 public abstract class InstrumentViewFactory extends ViewFactory {
   @Override
   public ViewTable createView() {
+    return this.generateViewTable(null);
+  }
+
+  @Override
+  public ViewTable createView(ViewQuery viewQuery) {
+    return this.generateViewTable(viewQuery);
+  }
+
+  private ViewTable generateViewTable(ViewQuery viewQuery) {
+    boolean runByQuery = false;
+    ToneCollection toneCollection = null;
+
+    if (viewQuery != null) {
+      runByQuery = true;
+      toneCollection = this.convertViewQueryToToneCollection(viewQuery);
+    }
+
     InstrumentModel instrumentModel = createInstrumentModel();
 
     int length = instrumentModel.getMaxLength();
@@ -22,7 +39,13 @@ public abstract class InstrumentViewFactory extends ViewFactory {
     ViewCell[][] modelCells = new ViewCell[length][breadth];
 
     for (int rowCounter = 0; rowCounter < length; rowCounter++) {
-      modelCells[rowCounter] = createModelRow(instrumentModel.getRow(rowCounter));
+      if (runByQuery) {
+        modelCells[rowCounter] =
+            createModelRow(instrumentModel.getFilteredRow(rowCounter, toneCollection));
+      }
+      else {
+        modelCells[rowCounter] = createModelRow(instrumentModel.getRow(rowCounter));
+      }
     }
 
     int columnWidths[] = this.generateColumnWidths(modelCells);
@@ -37,36 +60,15 @@ public abstract class InstrumentViewFactory extends ViewFactory {
     return generatedTable;
   }
 
-  @Override
-  public ViewTable createView(ViewQuery viewQuery) {
+  private ToneCollection convertViewQueryToToneCollection(ViewQuery viewQuery) {
     ToneGroupObject toneGroupObject = viewQuery.getToneGroupObject();
+
     if ((toneGroupObject instanceof Scale) || (toneGroupObject instanceof Chord)) {
       ToneCollection toneCollection = toneGroupObject.getToneCollection();
-      InstrumentModel instrumentModel = createInstrumentModel();
-
-      int length = instrumentModel.getMaxLength();
-      int breadth = instrumentModel.getMaxWidth();
-
-      ViewCell[][] modelCells = new ViewCell[length][breadth];
-
-      for (int rowCounter = 0; rowCounter < length; rowCounter++) {
-        modelCells[rowCounter] =
-            createModelRow(instrumentModel.getFilteredRow(rowCounter, toneCollection));
-      }
-
-      int columnWidths[] = this.generateColumnWidths(modelCells);
-
-      String message = this.validate(modelCells, columnWidths);
-      if (message != null) {
-        throw new IllegalArgumentException(message);
-      }
-
-      ViewTable generatedTable = new ViewTable(modelCells, columnWidths);
-
-      return generatedTable;
+      return toneCollection;
     }
     else {
-      throw new UnsupportedOperationException("Unsupported Query");
+      throw new IllegalArgumentException("Unsupported Query");
     }
   }
 
