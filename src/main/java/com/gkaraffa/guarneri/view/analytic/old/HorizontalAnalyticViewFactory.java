@@ -1,19 +1,19 @@
-package com.gkaraffa.guarneri.view.analytic;
+package com.gkaraffa.guarneri.view.analytic.old;
 
 import com.gkaraffa.cremona.theoretical.ToneCollection;
 import com.gkaraffa.cremona.theoretical.ToneGroupObject;
 import com.gkaraffa.cremona.theoretical.scale.Scale;
 import com.gkaraffa.guarneri.view.ViewCell;
-import com.gkaraffa.guarneri.view.ViewFactory;
 import com.gkaraffa.guarneri.view.ViewQuery;
 import com.gkaraffa.guarneri.view.ViewTable;
+import com.gkaraffa.guarneri.view.old.ViewFactory;
 
-public abstract class AnalyticViewFactory extends ViewFactory {
+public abstract class HorizontalAnalyticViewFactory extends ViewFactory {
 
   @Override
   public ViewTable createView() {
     throw new UnsupportedOperationException(
-        "Cannot create IntervalAnalyticModel without parameters.");
+        "Cannot create HorizontalAnalyticViewFactory without parameters.");
   }
   
   @Override
@@ -53,7 +53,6 @@ public abstract class AnalyticViewFactory extends ViewFactory {
 
     return generatedTable;
   }
-
 
   protected abstract String[] createHeaderArray();
 

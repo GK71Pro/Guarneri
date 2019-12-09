@@ -1,23 +1,34 @@
 package com.gkaraffa.guarneri.common;
 
-import com.gkaraffa.cremona.helper.ChordHelper;
-import com.gkaraffa.cremona.helper.ScaleHelper;
-import com.gkaraffa.cremona.theoretical.chord.Chord;
-import com.gkaraffa.cremona.theoretical.scale.Scale;
-import com.gkaraffa.guarneri.outputform.GridTextOutputFormFactory;
 import com.gkaraffa.guarneri.outputform.OutputForm;
 import com.gkaraffa.guarneri.outputform.OutputFormFactory;
 import com.gkaraffa.guarneri.outputform.TabularTextOutputFormFactory;
-import com.gkaraffa.guarneri.view.ViewFactory;
-import com.gkaraffa.guarneri.view.ViewQuery;
+import com.gkaraffa.guarneri.view.ViewCell;
 import com.gkaraffa.guarneri.view.ViewTable;
-import com.gkaraffa.guarneri.view.analytic.RomanNumeralAnalyticViewFactory;
-import com.gkaraffa.guarneri.view.instrument.GuitarViewFactory;
+import com.gkaraffa.guarneri.view.ViewTableBuilder;
 
 public class TestPlatform {
 
   public TestPlatform() {}
+  
+  public static void main(String[] args) {
+    ViewTableBuilder vtBuild = new ViewTableBuilder();
+    vtBuild.insertCell(0, 0, new ViewCell("Cell 0,0"));
+    vtBuild.insertCell(1, 0, new ViewCell("Cell 1,0"));
+    vtBuild.insertCell(2, 0, new ViewCell("Cell 2,0"));
+    vtBuild.insertCell(0, 1, new ViewCell("Cell 0,1"));
+    vtBuild.insertCell(1, 1, new ViewCell("Cell 1,1"));
+    vtBuild.insertCell(2, 1, new ViewCell("Cell 2,1"));
+    vtBuild.insertCell(3, 2, new ViewCell("Cell 3,2"));
 
+    ViewTable viewTable = vtBuild.compileTable();
+    OutputFormFactory viewFactory = new TabularTextOutputFormFactory();
+    OutputForm view = viewFactory.renderView(viewTable);
+    System.out.println(view.toString());
+
+  }
+
+  /*
   public static void main(String[] args) {
     ScaleHelper helper = ScaleHelper.getInstance();
     Scale scale = helper.getScale("C", "Ionian");
@@ -38,6 +49,7 @@ public class TestPlatform {
     
     System.out.println(view.toString());
   }
+  */
 
 
 }

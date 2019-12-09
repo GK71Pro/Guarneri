@@ -4,8 +4,9 @@ import com.gkaraffa.cremona.theoretical.TonalSpectrum;
 import com.gkaraffa.cremona.theoretical.ToneCollection;
 import com.gkaraffa.cremona.theoretical.scale.Scale;
 import com.gkaraffa.guarneri.view.ViewCell;
+import com.gkaraffa.guarneri.view.analytic.old.HorizontalAnalyticViewFactory;
 
-public class ScalarAnalyticViewFactory extends AnalyticViewFactory {
+public class ScalarAnalyticViewFactory extends HorizontalAnalyticViewFactory {
 
   @Override
   protected String[] createHeaderArray() {

@@ -6,8 +6,9 @@ import com.gkaraffa.cremona.theoretical.chord.Chord;
 import com.gkaraffa.cremona.theoretical.scale.DiatonicScale;
 import com.gkaraffa.cremona.theoretical.scale.Scale;
 import com.gkaraffa.guarneri.view.ViewCell;
+import com.gkaraffa.guarneri.view.analytic.old.HorizontalAnalyticViewFactory;
 
-public class RomanNumeralAnalyticViewFactory extends AnalyticViewFactory {
+public class RomanNumeralAnalyticViewFactory extends HorizontalAnalyticViewFactory {
 
   @Override
   protected String[] createHeaderArray() {

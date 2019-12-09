@@ -7,9 +7,9 @@ import com.gkaraffa.cremona.theoretical.chord.Chord;
 import com.gkaraffa.cremona.theoretical.scale.Scale;
 import com.gkaraffa.guarneri.instrument.InstrumentModel;
 import com.gkaraffa.guarneri.view.ViewCell;
-import com.gkaraffa.guarneri.view.ViewFactory;
 import com.gkaraffa.guarneri.view.ViewQuery;
 import com.gkaraffa.guarneri.view.ViewTable;
+import com.gkaraffa.guarneri.view.old.ViewFactory;
 
 public abstract class InstrumentViewFactory extends ViewFactory {
   @Override
