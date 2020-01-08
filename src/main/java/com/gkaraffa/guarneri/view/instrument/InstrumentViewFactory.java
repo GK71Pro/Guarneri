@@ -7,11 +7,13 @@ import com.gkaraffa.cremona.theoretical.chord.Chord;
 import com.gkaraffa.cremona.theoretical.scale.Scale;
 import com.gkaraffa.guarneri.instrument.InstrumentModel;
 import com.gkaraffa.guarneri.view.ViewCell;
+import com.gkaraffa.guarneri.view.ViewFactory;
 import com.gkaraffa.guarneri.view.ViewQuery;
 import com.gkaraffa.guarneri.view.ViewTable;
-import com.gkaraffa.guarneri.view.old.ViewFactory;
+import com.gkaraffa.guarneri.view.ViewTableBuilder;
 
-public abstract class InstrumentViewFactory extends ViewFactory {
+public abstract class InstrumentViewFactory implements ViewFactory {
+  
   @Override
   public ViewTable createView() {
     return this.generateViewTable(null);
@@ -19,61 +21,60 @@ public abstract class InstrumentViewFactory extends ViewFactory {
 
   @Override
   public ViewTable createView(ViewQuery viewQuery) {
-    return this.generateViewTable(viewQuery);
+    ToneCollection toneCollection = this.verifyAndInterpretQuery(viewQuery);
+    return this.generateViewTable(toneCollection);
   }
 
-  private ViewTable generateViewTable(ViewQuery viewQuery) {
-    boolean runByQuery = false;
+  private ToneCollection verifyAndInterpretQuery(ViewQuery viewQuery) {
+    ToneGroupObject toneGroupObject = viewQuery.getToneGroupObject();
     ToneCollection toneCollection = null;
 
-    if (viewQuery != null) {
-      runByQuery = true;
-      toneCollection = this.convertViewQueryToToneCollection(viewQuery);
-    }
-
-    InstrumentModel instrumentModel = createInstrumentModel();
-
-    int length = instrumentModel.getMaxLength();
-    int breadth = instrumentModel.getMaxWidth();
-
-    ViewCell[][] modelCells = new ViewCell[length][breadth];
-
-    for (int rowCounter = 0; rowCounter < length; rowCounter++) {
-      if (runByQuery) {
-        modelCells[rowCounter] =
-            createModelRow(instrumentModel.getFilteredRow(rowCounter, toneCollection));
-      }
-      else {
-        modelCells[rowCounter] = createModelRow(instrumentModel.getRow(rowCounter));
-      }
-    }
-
-    int columnWidths[] = this.generateColumnWidths(modelCells);
-
-    String message = this.validate(modelCells, columnWidths);
-    if (message != null) {
-      throw new IllegalArgumentException(message);
-    }
-
-    ViewTable generatedTable = new ViewTable(modelCells, columnWidths);
-
-    return generatedTable;
-  }
-
-  private ToneCollection convertViewQueryToToneCollection(ViewQuery viewQuery) {
-    ToneGroupObject toneGroupObject = viewQuery.getToneGroupObject();
-
     if ((toneGroupObject instanceof Scale) || (toneGroupObject instanceof Chord)) {
-      ToneCollection toneCollection = toneGroupObject.getToneCollection();
-      return toneCollection;
+      toneCollection = toneGroupObject.getToneCollection();
     }
     else {
       throw new IllegalArgumentException("Unsupported Query");
     }
+    
+    return toneCollection;
   }
 
+  private ViewTable generateViewTable(ToneCollection toneCollection) {
+    ViewTableBuilder vtBuild = new ViewTableBuilder();
+    InstrumentModel instrumentModel = createInstrumentModel();
+    int rowLength = instrumentModel.getMaxLength();
+    
+    for (int rowCounter = 0; rowCounter < rowLength; rowCounter++) {
+      if (toneCollection != null) {
+        this.insertRowPitches(vtBuild, rowCounter, instrumentModel.getFilteredRow(rowCounter, toneCollection));
+      }
+      else {
+        this.insertRowPitches(vtBuild, rowCounter, instrumentModel.getRow(rowCounter));
+      }
+    }
+
+    ViewTable generatedTable = vtBuild.compileTable();
+
+    return generatedTable;
+  }
+
+  private void insertRowPitches(ViewTableBuilder vtBuild, int rowIndex, Pitch[] rowPitches) {
+    int counter = 0;
+    
+    for (Pitch pitch: rowPitches) {
+      ViewCell viewCell = null;
+      
+      if (pitch == null) {
+        viewCell = new ViewCell("");
+      }
+      else {
+        viewCell = new ViewCell(pitch.getText());
+      }
+      
+      vtBuild.insertCell(counter, rowIndex, viewCell); 
+      counter++;
+    }
+  }
+  
   protected abstract InstrumentModel createInstrumentModel();
-
-  protected abstract ViewCell[] createModelRow(Pitch[] rowPitches);
-
 }

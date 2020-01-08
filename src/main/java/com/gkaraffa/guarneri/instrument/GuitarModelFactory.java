@@ -14,7 +14,7 @@ public class GuitarModelFactory extends InstrumentModelFactory {
 
   @Override
   public InstrumentModel createInstrumentModel() {
-    int fretCount = 24;
+    int fretCount = 25;
     ArrayList<ArrayList<Pitch>> guitarStrings = new ArrayList<ArrayList<Pitch>>();
     
     guitarStrings.add(createStringNotes(new Pitch(Tone.E, 2), fretCount));

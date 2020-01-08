@@ -1,10 +1,6 @@
-package com.gkaraffa.guarneri.view.old;
+package com.gkaraffa.guarneri.view;
 
-import com.gkaraffa.guarneri.view.ViewCell;
-import com.gkaraffa.guarneri.view.ViewQuery;
-import com.gkaraffa.guarneri.view.ViewTable;
-
-public abstract class ViewFactory {
+public abstract class ViewFactoryOld {
   public abstract ViewTable createView();
 
   public abstract ViewTable createView(ViewQuery viewQuery);

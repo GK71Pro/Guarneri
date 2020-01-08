@@ -1,4 +1,4 @@
-package com.gkaraffa.guarneri.view.analytic;
+package com.gkaraffa.guarneri.view.analytic.scale;
 
 import com.gkaraffa.cremona.theoretical.Interval;
 import com.gkaraffa.cremona.theoretical.chord.Chord;

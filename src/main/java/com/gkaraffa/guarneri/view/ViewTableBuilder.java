@@ -2,100 +2,104 @@ package com.gkaraffa.guarneri.view;
 
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Set;
 
 public class ViewTableBuilder {
-  private int xExtentIndex = 0;
-  private int yExtentIndex = 0;
-  private HashMap<CoordinateKey, ViewCell> hashMap = new HashMap<CoordinateKey, ViewCell>();
+  private HashMap<CoordinatePair, ViewCell> hashMap = new HashMap<CoordinatePair, ViewCell>();
 
   public ViewTableBuilder() {}
-  
+
   public void insertCell(int xCoord, int yCoord, ViewCell viewCell) {
-    this.alignExtents(xCoord, yCoord);
-    hashMap.put(new CoordinateKey(xCoord, yCoord), viewCell);
+    hashMap.put(new CoordinatePair(xCoord, yCoord), viewCell);
   }
-  
+
   public ViewTable compileTable() {
-    ViewCell[][] cellArray = instantiateCells();
-    
-    for (int yIndex = 0; yIndex <= yExtentIndex; yIndex++) {
-      for (int xIndex = 0; xIndex <= xExtentIndex; xIndex++) {
-        ViewCell fetchedCell = hashMap.get(new CoordinateKey(xIndex, yIndex));
-        
+    CoordinatePair extents = establishExtents();
+    ViewCell[][] cellArray = instantiateCells(extents);
+    int columnWidths[] = new int[extents.xCoord + 1];
+
+    for (int yIndex = 0; yIndex <= extents.yCoord; yIndex++) {
+      for (int xIndex = 0; xIndex <= extents.xCoord; xIndex++) {
+        ViewCell fetchedCell = hashMap.get(new CoordinatePair(xIndex, yIndex));
+
+        // ViewTable assembly
         if (fetchedCell == null) {
           fetchedCell = new ViewCell("");
         }
-        
         cellArray[yIndex][xIndex] = fetchedCell;
-      }
-    }
-    
-    int[] columnWidths = this.generateColumnWidths(cellArray);
-    
-    return new ViewTable(cellArray, columnWidths);
-  }
-  
-  public void clear() {
-    this.xExtentIndex = 0;
-    this.yExtentIndex = 0;
-    this.hashMap = new HashMap<CoordinateKey, ViewCell>();
-  }
-  
-  private ViewCell[][] instantiateCells(){
-    ViewCell[][] cellArray = new ViewCell[yExtentIndex + 1][xExtentIndex + 1];
-    
-    return cellArray;
-  }
 
-  private void alignExtents(int xCoord, int yCoord) {
-    if (xCoord > xExtentIndex) {
-      xExtentIndex = xCoord;
-    }
-    
-    if (yCoord > yExtentIndex) {
-      yExtentIndex = yCoord;
-    }
-  }
-  
-  private int[] generateColumnWidths(ViewCell[][] viewCells) {
-    int columnWidths[] = new int[this.xExtentIndex + 1];
-
-    for (int yIndex = 0; yIndex <= this.yExtentIndex; yIndex++) {
-      for (int xIndex = 0; xIndex <= this.xExtentIndex; xIndex++) {
-        int currentCellSize = viewCells[yIndex][xIndex].getCellText().length();
-
+        // ColumnWidths tracking
+        int currentCellSize = fetchedCell.getCellText().length();
         if (currentCellSize > columnWidths[xIndex]) {
           columnWidths[xIndex] = currentCellSize;
         }
       }
     }
 
-    return columnWidths;
+    return new ViewTable(cellArray, columnWidths);
   }
-  
-  class CoordinateKey {
+
+  public void clear() {
+    // null out hashMap member and attempt garbage collection
+    this.hashMap = null;
+    System.gc();
+
+    // create new HashMap object and assign reference
+    this.hashMap = new HashMap<CoordinatePair, ViewCell>();
+  }
+
+  private CoordinatePair establishExtents() {
+    int xMax = 0;
+    int yMax = 0;
+
+    // convert hashMap into CoordinatePair array
+    Set<CoordinatePair> coordinateSet = this.hashMap.keySet();
+    CoordinatePair[] coordinateArray =
+        coordinateSet.toArray(new CoordinatePair[coordinateSet.size()]);
+
+    // establish extends
+    for (CoordinatePair coordinateKey : coordinateArray) {
+      if (coordinateKey.xCoord > xMax) {
+        xMax = coordinateKey.xCoord;
+      }
+
+      if (coordinateKey.yCoord > yMax) {
+        yMax = coordinateKey.yCoord;
+      }
+    }
+
+    // create new CoordinatePair with extents and return
+    return new CoordinatePair(xMax, yMax);
+  }
+
+  private ViewCell[][] instantiateCells(CoordinatePair extents) {
+    ViewCell[][] cellArray = new ViewCell[extents.yCoord + 1][extents.xCoord + 1];
+
+    return cellArray;
+  }
+
+  class CoordinatePair {
     private int xCoord = 0;
     private int yCoord = 0;
 
-    public CoordinateKey(int xCoord, int yCoord) {
+    public CoordinatePair(int xCoord, int yCoord) {
       this.xCoord = xCoord;
       this.yCoord = yCoord;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
       if (this == obj) {
         return true;
       }
 
-      if ((obj == null) || !(obj instanceof CoordinateKey)) {
+      if ((obj == null) || !(obj instanceof CoordinatePair)) {
         return false;
       }
 
-      CoordinateKey cKey = (CoordinateKey) obj;
-      
-      return xCoord == cKey.xCoord &&
-          yCoord == cKey.yCoord;
+      CoordinatePair cKey = (CoordinatePair) obj;
+
+      return xCoord == cKey.xCoord && yCoord == cKey.yCoord;
     }
 
     @Override
@@ -103,5 +107,6 @@ public class ViewTableBuilder {
       return Objects.hash(xCoord, yCoord);
     }
   }
-  
+
+
 }

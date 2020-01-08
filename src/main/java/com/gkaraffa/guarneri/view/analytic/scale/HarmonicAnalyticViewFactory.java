@@ -1,15 +1,12 @@
-package com.gkaraffa.guarneri.view.analytic;
+package com.gkaraffa.guarneri.view.analytic.scale;
 
-import com.gkaraffa.cremona.theoretical.ToneCollection;
-import com.gkaraffa.guarneri.view.ViewCell;
-import com.gkaraffa.guarneri.view.analytic.old.VerticalAnalyticViewFactory;
-
-public class HarmonicAnalyticViewFactory extends VerticalAnalyticViewFactory {
+public class HarmonicAnalyticViewFactory {
 
   public HarmonicAnalyticViewFactory() {
     // TODO Auto-generated constructor stub
   }
 
+  /*
   @Override
   protected String[] createHeaderArray() {
     String[] headerArray = new String[6];
@@ -33,5 +30,6 @@ public class HarmonicAnalyticViewFactory extends VerticalAnalyticViewFactory {
     // TODO Auto-generated method stub
     return null;
   }
-
+  */
+  
 }
