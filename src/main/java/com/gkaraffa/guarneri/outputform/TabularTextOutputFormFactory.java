@@ -12,7 +12,7 @@ public class TabularTextOutputFormFactory extends TextOutputFormFactory {
 
     sB.append(this.renderHeader(fieldSpace, modelTable));
     sB.append(this.renderBody(fieldSpace, modelTable));
-    sB.append(this.renderFoot(fieldSpace));
+    // sB.append(this.renderFoot(fieldSpace));
     sB.append("\n");
 
     String viewString = sB.toString();
@@ -38,6 +38,7 @@ public class TabularTextOutputFormFactory extends TextOutputFormFactory {
         columnCount++;
       }
       sB.append("|\n");
+      sB.append(this.renderFoot(fieldSpace));
     }
 
     return sB.toString();

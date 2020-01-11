@@ -10,6 +10,7 @@ import com.gkaraffa.guarneri.view.ViewFactory;
 import com.gkaraffa.guarneri.view.ViewQuery;
 import com.gkaraffa.guarneri.view.ViewTable;
 import com.gkaraffa.guarneri.view.analytic.scale.IntervalAnalyticViewFactory;
+import com.gkaraffa.guarneri.view.analytic.scale.ReharmonizationOptionsViewFactory;
 import com.gkaraffa.guarneri.view.analytic.scale.RomanNumeralAnalyticViewFactory;
 import com.gkaraffa.guarneri.view.analytic.scale.StepPatternAnalyticFactory;
 import com.gkaraffa.guarneri.view.instrument.GuitarViewFactory;
@@ -45,5 +46,10 @@ public class TestPlatform {
     form = formFactory.renderView(viewTable);
     System.out.println(form.toString());
 
+    viewFactory = new ReharmonizationOptionsViewFactory();
+    viewTable = viewFactory.createView(new ViewQuery(scale));
+    formFactory = new TabularTextOutputFormFactory();
+    form = formFactory.renderView(viewTable);
+    System.out.println(form.toString());
   }
 }
