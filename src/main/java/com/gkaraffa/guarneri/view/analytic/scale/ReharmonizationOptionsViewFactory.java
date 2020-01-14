@@ -46,6 +46,7 @@ public class ReharmonizationOptionsViewFactory extends VerticalScalarAnalyticVie
     return new String[] {"Degree", "Chord", "Secondary Dominant", "Parallel Major/Minor"};
   }
 
+  /*
   private String getSpellingString(Chord chord) {
     StringBuilder sB = new StringBuilder();
 
@@ -60,6 +61,7 @@ public class ReharmonizationOptionsViewFactory extends VerticalScalarAnalyticVie
 
     return sB.toString();
   }
+  */
 
   private Chord getSecondaryDominantChord(Chord primaryChord) {
     ChordFactory chordFactory = new ChordFactory();
