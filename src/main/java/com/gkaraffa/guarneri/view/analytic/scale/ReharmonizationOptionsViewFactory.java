@@ -10,7 +10,6 @@ import com.gkaraffa.guarneri.view.ViewTableBuilder;
 
 public class ReharmonizationOptionsViewFactory extends VerticalScalarAnalyticViewFactory {
 
-
   @Override
   protected void buildColumnFromToneCollection(ViewTableBuilder vtBuild, Scale scale,
       int collectionPosition) {
@@ -44,23 +43,6 @@ public class ReharmonizationOptionsViewFactory extends VerticalScalarAnalyticVie
   protected String[] applyHeaderArray() {
     return new String[] {"Degree", "Chord", "Secondary Dominant", "Parallel Major/Minor"};
   }
-
-  /*
-  private String getSpellingString(Chord chord) {
-    StringBuilder sB = new StringBuilder();
-
-    ToneCollection chordTones = chord.getToneCollection();
-    for (Tone tone : chordTones) {
-      sB.append(tone);
-      sB.append("->");
-    }
-
-    int size = sB.length();
-    sB.delete((size - 2), size);
-
-    return sB.toString();
-  }
-  */
 
   private Chord getSecondaryDominantChord(Chord primaryChord) {
     ChordFactory chordFactory = new ChordFactory();
