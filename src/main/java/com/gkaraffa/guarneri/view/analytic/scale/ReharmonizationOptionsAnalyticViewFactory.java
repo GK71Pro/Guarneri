@@ -1,5 +1,7 @@
 package com.gkaraffa.guarneri.view.analytic.scale;
 
+import com.gkaraffa.cremona.theoretical.Interval;
+import com.gkaraffa.cremona.theoretical.IntervalNumber;
 import com.gkaraffa.cremona.theoretical.Tone;
 import com.gkaraffa.cremona.theoretical.chord.Chord;
 import com.gkaraffa.cremona.theoretical.chord.ChordFactory;
@@ -8,7 +10,7 @@ import com.gkaraffa.cremona.theoretical.scale.Scale;
 import com.gkaraffa.guarneri.view.ViewCell;
 import com.gkaraffa.guarneri.view.ViewTableBuilder;
 
-public class ReharmonizationOptionsViewFactory extends VerticalScalarAnalyticViewFactory {
+public class ReharmonizationOptionsAnalyticViewFactory extends VerticalScalarAnalyticViewFactory {
 
   @Override
   protected void buildColumnFromToneCollection(ViewTableBuilder vtBuild, Scale scale,
@@ -54,7 +56,18 @@ public class ReharmonizationOptionsViewFactory extends VerticalScalarAnalyticVie
 
   private Chord getParallelMajorMinor(Chord primaryChord) {
     ChordFactory chordFactory = new ChordFactory();
+    
+    if (primaryChord.getIntervalPattern().getIntervalByIntervalNumber(IntervalNumber.THIRD).equals(Interval.MAJOR_THIRD)) {
+      return chordFactory.createChordFromIntervalPattern(Chord.MINOR_SEVENTH_CHORD_PATTERN,
+          primaryChord.getToneCollection().getTone(0));      
+    }
 
+    if (primaryChord.getIntervalPattern().getIntervalByIntervalNumber(IntervalNumber.THIRD).equals(Interval.MINOR_THIRD)) {
+      return chordFactory.createChordFromIntervalPattern(Chord.MAJOR_SEVENTH_CHORD_PATTERN,
+          primaryChord.getToneCollection().getTone(0));
+    }
+
+    /*
     if ((primaryChord.getChordNomenclature().getText().contains("Major"))
         || (primaryChord.getChordNomenclature().getText().contains("Dominant"))) {
       return chordFactory.createChordFromIntervalPattern(Chord.MINOR_SEVENTH_CHORD_PATTERN,
@@ -66,6 +79,7 @@ public class ReharmonizationOptionsViewFactory extends VerticalScalarAnalyticVie
       return chordFactory.createChordFromIntervalPattern(Chord.MAJOR_SEVENTH_CHORD_PATTERN,
           primaryChord.getToneCollection().getTone(0));
     }
+    */
     
     return null;
   }
