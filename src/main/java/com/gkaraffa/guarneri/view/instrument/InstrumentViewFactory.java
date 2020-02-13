@@ -68,7 +68,7 @@ public abstract class InstrumentViewFactory implements ViewFactory {
         viewCell = new ViewCell("");
       }
       else {
-        viewCell = new ViewCell(pitch.getText());
+        viewCell = new ViewCell(pitch.toString());
       }
       
       vtBuild.insertCell(counter, rowIndex, viewCell); 

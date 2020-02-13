@@ -174,7 +174,7 @@ public class FretboardCreator {
       sB.append("   ");
     }
     else {
-      sB.append(pitch.getText());
+      sB.append(pitch.toString());
     }
 
     if (sB.length() == 3) {
@@ -199,7 +199,7 @@ public class FretboardCreator {
       sB.append(" ");
     }
     else {
-      sB.append(pitch.getText());
+      sB.append(pitch.toString());
     }
 
     sB.append(",");
