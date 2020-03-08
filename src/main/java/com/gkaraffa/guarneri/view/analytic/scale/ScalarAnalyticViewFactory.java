@@ -32,7 +32,7 @@ public abstract class ScalarAnalyticViewFactory implements ViewFactory {
     throw new UnsupportedOperationException();
   }
 
-  private void verifyAndInterpretQuery(ViewQuery viewQuery) {
+  protected void verifyAndInterpretQuery(ViewQuery viewQuery) {
     ToneGroupObject tgO = viewQuery.getToneGroupObject();
     if (tgO instanceof Scale) {
       this.queryScale = (Scale) tgO;

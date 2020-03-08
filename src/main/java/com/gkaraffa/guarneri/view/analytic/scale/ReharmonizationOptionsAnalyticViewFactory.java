@@ -1,27 +1,37 @@
 package com.gkaraffa.guarneri.view.analytic.scale;
 
-import com.gkaraffa.cremona.theoretical.Interval;
-import com.gkaraffa.cremona.theoretical.IntervalNumber;
+import com.gkaraffa.cremona.theoretical.TonalSpectrum;
 import com.gkaraffa.cremona.theoretical.Tone;
 import com.gkaraffa.cremona.theoretical.chord.Chord;
 import com.gkaraffa.cremona.theoretical.chord.ChordFactory;
 import com.gkaraffa.cremona.theoretical.scale.DiatonicScale;
+import com.gkaraffa.cremona.theoretical.scale.DiatonicScaleFactory;
 import com.gkaraffa.cremona.theoretical.scale.Scale;
+import com.gkaraffa.cremona.theoretical.scale.ScaleFactory;
 import com.gkaraffa.guarneri.view.ViewCell;
+import com.gkaraffa.guarneri.view.ViewQuery;
 import com.gkaraffa.guarneri.view.ViewTableBuilder;
 
 public class ReharmonizationOptionsAnalyticViewFactory extends VerticalScalarAnalyticViewFactory {
+  private Scale parallelScale = null;
+
 
   @Override
   protected void buildColumnFromToneCollection(ViewTableBuilder vtBuild, Scale scale,
       int collectionPosition) {
     int xIndex = collectionPosition + 1;
-    RomanNumeral romanNumeral =
-        RomanNumeral.createRomanNumeral((DiatonicScale) scale, collectionPosition, 4);
-    Chord primaryChord = romanNumeral.getChord();
 
-    vtBuild.insertCell(xIndex, 0, new ViewCell(romanNumeral.getText()));
-    vtBuild.insertCell(xIndex, 1, new ViewCell(primaryChord.getText()));
+    RomanNumeral primaryRomanNumeral =
+        RomanNumeral.createRomanNumeral((DiatonicScale) scale, collectionPosition, 4);
+    RomanNumeral parallelRomanNumeral =
+        RomanNumeral.createRomanNumeral((DiatonicScale) this.parallelScale, collectionPosition, 4);
+
+    Chord primaryChord = primaryRomanNumeral.getChord();
+    Chord parallelChord = parallelRomanNumeral.getChord();
+
+    vtBuild.insertCell(xIndex, 0, new ViewCell(primaryRomanNumeral.getText()));
+    //vtBuild.insertCell(xIndex, 1, new ViewCell(primaryChord.getChordNomenclature().getAbbrev()));
+    vtBuild.insertCell(xIndex, 1, new ViewCell(primaryChord.getAbbrev()));
 
     if ((primaryChord.getChordNomenclature().getText().contains("Diminished"))
         || (collectionPosition == 0)) {
@@ -29,21 +39,37 @@ public class ReharmonizationOptionsAnalyticViewFactory extends VerticalScalarAna
     }
     else {
       vtBuild.insertCell(xIndex, 2,
-          new ViewCell(this.getSecondaryDominantChord(primaryChord).getText()));
+          new ViewCell(this.getSecondaryDominantChord(primaryChord).getAbbrev()));
     }
 
-    Chord parallel = this.getParallelMajorMinor(primaryChord);
-    if (parallel == null) {
-      vtBuild.insertCell(xIndex,  3, new ViewCell(""));
-    }
-    else {
-      vtBuild.insertCell(xIndex, 3, new ViewCell(parallel.getText()));
-    }
+    vtBuild.insertCell(xIndex, 3, new ViewCell(determineParallelRomanNumeralText(primaryChord, parallelChord, parallelRomanNumeral)));
+    // vtBuild.insertCell(xIndex, 4, new ViewCell(parallelChord.getChordNomenclature().getAbbrev()));
+    vtBuild.insertCell(xIndex, 4, new ViewCell(parallelChord.getAbbrev()));
   }
 
   @Override
   protected String[] applyHeaderArray() {
-    return new String[] {"Degree", "Chord", "Secondary Dominant", "Parallel Major/Minor"};
+    return new String[] {"Primary Degree", "Primary Chord", "Secondary Dominant", "Parallel Degree", "Parallel Chord"};
+  }
+
+  @Override
+  protected void verifyAndInterpretQuery(ViewQuery viewQuery) {
+    super.verifyAndInterpretQuery(viewQuery);
+    Scale scale = (Scale) viewQuery.getToneGroupObject();
+
+    if (scale.getIntervalPattern() != DiatonicScale.IONIAN_PATTERN) {
+      throw new IllegalArgumentException("ScalarAnalytics require ViewQuery containing a Scale");
+    }
+
+    this.parallelScale = createParallelScale(scale);
+  }
+
+  private Scale createParallelScale(Scale primaryScale) {
+    ScaleFactory scaleFactory = new DiatonicScaleFactory();
+    Scale parallelScale =
+        scaleFactory.createScale(DiatonicScale.AEOLIAN_PATTERN, primaryScale.getKey());
+
+    return parallelScale;
   }
 
   private Chord getSecondaryDominantChord(Chord primaryChord) {
@@ -53,34 +79,25 @@ public class ReharmonizationOptionsAnalyticViewFactory extends VerticalScalarAna
     return chordFactory.createChordFromIntervalPattern(Chord.DOMINANT_SEVENTH_CHORD_PATTERN,
         secondaryTonic);
   }
-
-  private Chord getParallelMajorMinor(Chord primaryChord) {
-    ChordFactory chordFactory = new ChordFactory();
+  
+  private String determineParallelRomanNumeralText(Chord primaryChord, Chord parallelChord, RomanNumeral parallelRomanNumeral) {
+    Tone primaryTone = primaryChord.getTonic();
+    Tone parallelTone = parallelChord.getTonic();
     
-    if (primaryChord.getIntervalPattern().getIntervalByIntervalNumber(IntervalNumber.THIRD).equals(Interval.MAJOR_THIRD)) {
-      return chordFactory.createChordFromIntervalPattern(Chord.MINOR_SEVENTH_CHORD_PATTERN,
-          primaryChord.getToneCollection().getTone(0));      
-    }
-
-    if (primaryChord.getIntervalPattern().getIntervalByIntervalNumber(IntervalNumber.THIRD).equals(Interval.MINOR_THIRD)) {
-      return chordFactory.createChordFromIntervalPattern(Chord.MAJOR_SEVENTH_CHORD_PATTERN,
-          primaryChord.getToneCollection().getTone(0));
-    }
-
-    /*
-    if ((primaryChord.getChordNomenclature().getText().contains("Major"))
-        || (primaryChord.getChordNomenclature().getText().contains("Dominant"))) {
-      return chordFactory.createChordFromIntervalPattern(Chord.MINOR_SEVENTH_CHORD_PATTERN,
-          primaryChord.getToneCollection().getTone(0));
+    if (primaryTone.equals(parallelTone)) {
+      return parallelRomanNumeral.getText();
     }
     
-    if ((primaryChord.getChordNomenclature().getText().contains("Minor"))
-        && (!primaryChord.getChordNomenclature().getText().contains("Major"))) {
-      return chordFactory.createChordFromIntervalPattern(Chord.MAJOR_SEVENTH_CHORD_PATTERN,
-          primaryChord.getToneCollection().getTone(0));
+    if (TonalSpectrum.traverseDistance(primaryTone, 1).equals(parallelTone)) {
+      //sharp
+      return "#" + parallelRomanNumeral.getText();
     }
-    */
     
-    return null;
+    if (TonalSpectrum.traverseDistance(parallelTone, 1).equals(primaryTone)) {
+      //flat
+      return "b" + parallelRomanNumeral.getText();
+    }
+    
+    throw new IllegalArgumentException("Failure in conversion");
   }
 }
