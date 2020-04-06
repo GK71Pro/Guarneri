@@ -1,5 +1,7 @@
 package com.gkaraffa.guarneri.view.analytic.scale;
 
+import com.gkaraffa.cremona.theoretical.Interval;
+import com.gkaraffa.cremona.theoretical.IntervalNumber;
 import com.gkaraffa.cremona.theoretical.TonalSpectrum;
 import com.gkaraffa.cremona.theoretical.Tone;
 import com.gkaraffa.cremona.theoretical.chord.Chord;
@@ -33,7 +35,10 @@ public class ReharmonizationOptionsAnalyticViewFactory extends VerticalScalarAna
     //vtBuild.insertCell(xIndex, 1, new ViewCell(primaryChord.getChordNomenclature().getAbbrev()));
     vtBuild.insertCell(xIndex, 1, new ViewCell(primaryChord.getAbbrev()));
 
-    if ((primaryChord.getChordNomenclature().getText().contains("Diminished"))
+    if ((
+    (primaryChord.getIntervalPattern().getIntervalByIntervalNumber(IntervalNumber.FIFTH)
+    == Interval.DIMINISHED_FIFTH))
+    // if ((primaryChord.getChordNomenclature().getLongName().contains("Diminished"))
         || (collectionPosition == 0)) {
       vtBuild.insertCell(xIndex, 2, new ViewCell(""));
     }

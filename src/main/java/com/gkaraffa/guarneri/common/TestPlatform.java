@@ -51,5 +51,11 @@ public class TestPlatform {
     formFactory = new TabularTextOutputFormFactory();
     form = formFactory.renderView(viewTable);
     System.out.println(form.toString());
+    
+    viewFactory = new GuitarViewFactory();
+    scale = helper.getScale("A", "Melodic Minor");
+    viewTable = viewFactory.createView(new ViewQuery(scale));
+    form = formFactory.renderView(viewTable);
+    System.out.println(form.toString());
   }
 }

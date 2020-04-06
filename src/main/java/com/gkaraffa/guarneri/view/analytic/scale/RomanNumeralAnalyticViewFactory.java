@@ -23,7 +23,7 @@ public class RomanNumeralAnalyticViewFactory extends HorizontalScalarAnalyticVie
     RomanNumeral romanNumeral = RomanNumeral.createRomanNumeral((DiatonicScale) scale, collectionPosition, 4);
 
     vtBuild.insertCell(0, yIndex, new ViewCell(romanNumeral.getText()));
-    vtBuild.insertCell(1, yIndex, new ViewCell(romanNumeral.getChord().getText()));
+    vtBuild.insertCell(1, yIndex, new ViewCell(romanNumeral.getChord().getLongName()));
     vtBuild.insertCell(2, yIndex, new ViewCell(getSpellingString(romanNumeral.getChord())));
   }
 
