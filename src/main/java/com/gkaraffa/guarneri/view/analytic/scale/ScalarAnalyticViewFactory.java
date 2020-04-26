@@ -31,12 +31,18 @@ public abstract class ScalarAnalyticViewFactory implements ViewFactory {
   public ViewTable createView() {
     throw new UnsupportedOperationException();
   }
+  
+  public Scale getQueryScale() {
+    return this.queryScale;
+  }
 
   protected void verifyAndInterpretQuery(ViewQuery viewQuery) {
-    ToneGroupObject tgO = viewQuery.getToneGroupObject();
-    if (tgO instanceof Scale) {
-      this.queryScale = (Scale) tgO;
-    } else {
+    ToneGroupObject tGO = (ToneGroupObject) viewQuery.getCriteria("Scale");
+    
+    if (tGO instanceof Scale) {
+      this.queryScale = (Scale) tGO;
+    }
+    else {
       throw new IllegalArgumentException("ScalarAnalytics require ViewQuery containing a Scale");
     }
   }

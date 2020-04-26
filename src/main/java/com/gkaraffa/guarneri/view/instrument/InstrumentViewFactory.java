@@ -26,7 +26,7 @@ public abstract class InstrumentViewFactory implements ViewFactory {
   }
 
   private ToneCollection verifyAndInterpretQuery(ViewQuery viewQuery) {
-    ToneGroupObject toneGroupObject = viewQuery.getToneGroupObject();
+    ToneGroupObject toneGroupObject = (ToneGroupObject) viewQuery.getCriteria("ToneGroupObject");
     ToneCollection toneCollection = null;
 
     if ((toneGroupObject instanceof Scale) || (toneGroupObject instanceof Chord)) {

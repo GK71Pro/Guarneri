@@ -32,13 +32,11 @@ public class ReharmonizationOptionsAnalyticViewFactory extends VerticalScalarAna
     Chord parallelChord = parallelRomanNumeral.getChord();
 
     vtBuild.insertCell(xIndex, 0, new ViewCell(primaryRomanNumeral.getText()));
-    //vtBuild.insertCell(xIndex, 1, new ViewCell(primaryChord.getChordNomenclature().getAbbrev()));
     vtBuild.insertCell(xIndex, 1, new ViewCell(primaryChord.getAbbrev()));
 
     if ((
     (primaryChord.getIntervalPattern().getIntervalByIntervalNumber(IntervalNumber.FIFTH)
     == Interval.DIMINISHED_FIFTH))
-    // if ((primaryChord.getChordNomenclature().getLongName().contains("Diminished"))
         || (collectionPosition == 0)) {
       vtBuild.insertCell(xIndex, 2, new ViewCell(""));
     }
@@ -48,7 +46,6 @@ public class ReharmonizationOptionsAnalyticViewFactory extends VerticalScalarAna
     }
 
     vtBuild.insertCell(xIndex, 3, new ViewCell(determineParallelRomanNumeralText(primaryChord, parallelChord, parallelRomanNumeral)));
-    // vtBuild.insertCell(xIndex, 4, new ViewCell(parallelChord.getChordNomenclature().getAbbrev()));
     vtBuild.insertCell(xIndex, 4, new ViewCell(parallelChord.getAbbrev()));
   }
 
@@ -60,7 +57,7 @@ public class ReharmonizationOptionsAnalyticViewFactory extends VerticalScalarAna
   @Override
   protected void verifyAndInterpretQuery(ViewQuery viewQuery) {
     super.verifyAndInterpretQuery(viewQuery);
-    Scale scale = (Scale) viewQuery.getToneGroupObject();
+    Scale scale = this.getQueryScale();
 
     if (scale.getIntervalPattern() != DiatonicScale.IONIAN_PATTERN) {
       throw new IllegalArgumentException("ScalarAnalytics require ViewQuery containing a Scale");
