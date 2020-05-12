@@ -8,8 +8,6 @@ import com.gkaraffa.guarneri.view.ViewTable;
 import com.gkaraffa.guarneri.view.ViewTableBuilder;
 
 public abstract class ScalarAnalyticViewFactory implements ViewFactory {
-  private Scale queryScale = null;
-
   abstract protected String[] applyHeaderArray();
 
   abstract protected void buildHeader(ViewTableBuilder vtBuild, String[] headerArray);
@@ -19,10 +17,11 @@ public abstract class ScalarAnalyticViewFactory implements ViewFactory {
   @Override
   public ViewTable createView(ViewQuery viewQuery) {
     ViewTableBuilder vtBuild = new ViewTableBuilder();
+    Scale queryScale = null;
 
-    this.verifyAndInterpretQuery(viewQuery);
+    queryScale = this.verifyAndInterpretQuery(viewQuery);
     this.buildHeader(vtBuild, applyHeaderArray());
-    this.buildBody(vtBuild, this.queryScale);
+    this.buildBody(vtBuild, queryScale);
 
     return vtBuild.compileTable();
   }
@@ -32,15 +31,12 @@ public abstract class ScalarAnalyticViewFactory implements ViewFactory {
     throw new UnsupportedOperationException();
   }
   
-  public Scale getQueryScale() {
-    return this.queryScale;
-  }
-
-  protected void verifyAndInterpretQuery(ViewQuery viewQuery) {
+  protected Scale verifyAndInterpretQuery(ViewQuery viewQuery) {
     ToneGroupObject tGO = (ToneGroupObject) viewQuery.getCriteria("Scale");
     
     if (tGO instanceof Scale) {
-      this.queryScale = (Scale) tGO;
+      return (Scale) tGO;
+      //  this.queryScale = (Scale) tGO;
     }
     else {
       throw new IllegalArgumentException("ScalarAnalytics require ViewQuery containing a Scale");

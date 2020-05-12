@@ -12,21 +12,42 @@ import com.gkaraffa.cremona.theoretical.scale.Scale;
 import com.gkaraffa.cremona.theoretical.scale.ScaleFactory;
 import com.gkaraffa.guarneri.view.ViewCell;
 import com.gkaraffa.guarneri.view.ViewQuery;
+import com.gkaraffa.guarneri.view.ViewTable;
 import com.gkaraffa.guarneri.view.ViewTableBuilder;
 
 public class ReharmonizationOptionsAnalyticViewFactory extends VerticalScalarAnalyticViewFactory {
-  private Scale parallelScale = null;
-
 
   @Override
-  protected void buildColumnFromToneCollection(ViewTableBuilder vtBuild, Scale scale,
+  public ViewTable createView(ViewQuery viewQuery) {
+    ViewTableBuilder vtBuild = new ViewTableBuilder();
+    Scale queryScale = null;
+    Scale parallelScale = null;
+
+    queryScale = this.verifyAndInterpretQuery(viewQuery);
+    parallelScale = this.createParallelScale(queryScale);
+
+    this.buildHeader(vtBuild, applyHeaderArray());
+    this.buildBody(vtBuild, queryScale, parallelScale);
+
+    return vtBuild.compileTable();
+  }
+  
+  protected void buildBody(ViewTableBuilder vtBuild, Scale primaryScale, Scale parallelScale) {
+    int collectionSize = primaryScale.getToneCollection().getSize();
+    
+    for (int collectionPosition = 0; collectionPosition < collectionSize; collectionPosition++) {
+      buildColumnFromToneCollection(vtBuild, primaryScale, parallelScale, collectionPosition);
+    }
+  }
+  
+  protected void buildColumnFromToneCollection(ViewTableBuilder vtBuild, Scale primaryScale, Scale parallelScale,
       int collectionPosition) {
     int xIndex = collectionPosition + 1;
 
     RomanNumeral primaryRomanNumeral =
-        RomanNumeral.createRomanNumeral((DiatonicScale) scale, collectionPosition, 4);
+        RomanNumeral.createRomanNumeral((DiatonicScale) primaryScale, collectionPosition, 4);
     RomanNumeral parallelRomanNumeral =
-        RomanNumeral.createRomanNumeral((DiatonicScale) this.parallelScale, collectionPosition, 4);
+        RomanNumeral.createRomanNumeral((DiatonicScale) parallelScale, collectionPosition, 4);
 
     Chord primaryChord = primaryRomanNumeral.getChord();
     Chord parallelChord = parallelRomanNumeral.getChord();
@@ -55,15 +76,18 @@ public class ReharmonizationOptionsAnalyticViewFactory extends VerticalScalarAna
   }
 
   @Override
-  protected void verifyAndInterpretQuery(ViewQuery viewQuery) {
-    super.verifyAndInterpretQuery(viewQuery);
-    Scale scale = this.getQueryScale();
+  protected Scale verifyAndInterpretQuery(ViewQuery viewQuery) {
+    Scale scale = super.verifyAndInterpretQuery(viewQuery);
+    //  Scale scale = this.getQueryScale();
 
     if (scale.getIntervalPattern() != DiatonicScale.IONIAN_PATTERN) {
       throw new IllegalArgumentException("ScalarAnalytics require ViewQuery containing a Scale");
     }
+    else {
+      return scale;
+    }
 
-    this.parallelScale = createParallelScale(scale);
+    //  this.parallelScale = createParallelScale(scale);
   }
 
   private Scale createParallelScale(Scale primaryScale) {
@@ -101,5 +125,12 @@ public class ReharmonizationOptionsAnalyticViewFactory extends VerticalScalarAna
     }
     
     throw new IllegalArgumentException("Failure in conversion");
+  }
+
+  @Override
+  protected void buildColumnFromToneCollection(ViewTableBuilder vtBuild, Scale scale,
+      int collectionPosition) {
+    throw new UnsupportedOperationException("not supported");
+    
   }
 }
