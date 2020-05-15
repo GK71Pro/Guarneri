@@ -1,4 +1,4 @@
-package com.gkaraffa.guarneri.view.analytic.scale;
+package com.gkaraffa.guarneri.old;
 
 import com.gkaraffa.cremona.theoretical.Interval;
 import com.gkaraffa.cremona.theoretical.IntervalNumber;
@@ -14,6 +14,8 @@ import com.gkaraffa.guarneri.view.ViewCell;
 import com.gkaraffa.guarneri.view.ViewQuery;
 import com.gkaraffa.guarneri.view.ViewTable;
 import com.gkaraffa.guarneri.view.ViewTableBuilder;
+import com.gkaraffa.guarneri.view.analytic.scale.RomanNumeral;
+import com.gkaraffa.guarneri.view.analytic.scale.VerticalScalarAnalyticViewFactory;
 
 public class ReharmonizationOptionsAnalyticViewFactory extends VerticalScalarAnalyticViewFactory {
 

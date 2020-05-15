@@ -13,18 +13,18 @@ public abstract class VerticalScalarAnalyticViewFactory extends ScalarAnalyticVi
     for (String selection : headerArray) {
       vtBuild.insertCell(0, counter, new ViewCell(selection));
       counter++;
-    }    
+    }
   }
 
   @Override
   protected void buildBody(ViewTableBuilder vtBuild, Scale queryScale) {
     int collectionSize = queryScale.getToneCollection().getSize();
-    
+
     for (int collectionPosition = 0; collectionPosition < collectionSize; collectionPosition++) {
       buildColumnFromToneCollection(vtBuild, queryScale, collectionPosition);
     }
   }
 
   abstract protected void buildColumnFromToneCollection(ViewTableBuilder vtBuild, Scale scale,
-      int collectionPosition);  
+      int collectionPosition);
 }

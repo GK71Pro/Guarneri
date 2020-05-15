@@ -36,7 +36,6 @@ public abstract class ScalarAnalyticViewFactory implements ViewFactory {
     
     if (tGO instanceof Scale) {
       return (Scale) tGO;
-      //  this.queryScale = (Scale) tGO;
     }
     else {
       throw new IllegalArgumentException("ScalarAnalytics require ViewQuery containing a Scale");
