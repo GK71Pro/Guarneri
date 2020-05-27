@@ -1,8 +1,9 @@
-package com.gkaraffa.guarneri.view.analytic.key;
+package com.gkaraffa.guarneri.old;
 
 import com.gkaraffa.cremona.theoretical.Tone;
 import com.gkaraffa.guarneri.view.ViewCell;
 import com.gkaraffa.guarneri.view.ViewTableBuilder;
+import com.gkaraffa.guarneri.view.analytic.key.KeyAnalyticViewFactory;
 
 public abstract class VerticalKeyAnalyticViewFactory extends KeyAnalyticViewFactory {
 

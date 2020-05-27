@@ -1,6 +1,7 @@
 package com.gkaraffa.guarneri.common;
 
 import com.gkaraffa.cremona.helper.ScaleHelper;
+import com.gkaraffa.cremona.theoretical.Tone;
 import com.gkaraffa.cremona.theoretical.scale.Scale;
 import com.gkaraffa.guarneri.outputform.InstrumentTextOutputFormFactory;
 import com.gkaraffa.guarneri.outputform.OutputForm;
@@ -10,6 +11,7 @@ import com.gkaraffa.guarneri.view.ViewFactory;
 import com.gkaraffa.guarneri.view.ViewQuery;
 import com.gkaraffa.guarneri.view.ViewQueryBuilder;
 import com.gkaraffa.guarneri.view.ViewTable;
+import com.gkaraffa.guarneri.view.analytic.key.ParallelModeAnalyticViewFactory;
 import com.gkaraffa.guarneri.view.analytic.scale.IntervalAnalyticViewFactory;
 import com.gkaraffa.guarneri.view.analytic.scale.RomanNumeralAnalyticViewFactory;
 import com.gkaraffa.guarneri.view.analytic.scale.StepPatternAnalyticFactory;
@@ -53,6 +55,15 @@ public class TestPlatform {
     viewFactory = new GuitarViewFactory();
     viewTable = viewFactory.createView(tgViewQuery);
     formFactory = new InstrumentTextOutputFormFactory();
+    form = formFactory.renderView(viewTable);
+    System.out.println(form.toString());
+    
+    viewFactory = new ParallelModeAnalyticViewFactory();
+    viewQueryBuilder.clear();
+    viewQueryBuilder.insertCriteria("Key", Tone.C);
+    ViewQuery keyViewQuery = viewQueryBuilder.compileViewQuery();
+    viewTable = viewFactory.createView(keyViewQuery);
+    formFactory = new TabularTextOutputFormFactory();
     form = formFactory.renderView(viewTable);
     System.out.println(form.toString());
   }
