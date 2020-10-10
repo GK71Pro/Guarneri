@@ -24,7 +24,7 @@ public class TestPlatform {
   public static void main(String[] args) {
     ScaleHelper helper = ScaleHelper.getInstance();
     ViewQueryBuilder viewQueryBuilder = new ViewQueryBuilder();
-    Scale scale = helper.getScale("C", "Ionian");
+    Scale scale = helper.getScale("B", "Second Diminished");
 
     viewQueryBuilder.insertCriteria("Scale", scale);
     ViewQuery scaleViewQuery = viewQueryBuilder.compileViewQuery();
@@ -40,6 +40,7 @@ public class TestPlatform {
     OutputForm form = formFactory.renderView(viewTable);
     System.out.println(form.toString());
 
+    /*
     viewFactory = new RomanNumeralAnalyticViewFactory();
     viewTable = viewFactory.createView(scaleViewQuery);
     formFactory = new TabularTextOutputFormFactory();
@@ -51,13 +52,13 @@ public class TestPlatform {
     formFactory = new TabularTextOutputFormFactory();
     form = formFactory.renderView(viewTable);
     System.out.println(form.toString());
-
+     */
     viewFactory = new GuitarViewFactory();
     viewTable = viewFactory.createView(tgViewQuery);
     formFactory = new InstrumentTextOutputFormFactory();
     form = formFactory.renderView(viewTable);
     System.out.println(form.toString());
-    
+    /*
     viewFactory = new ParallelModeAnalyticViewFactory();
     viewQueryBuilder.clear();
     viewQueryBuilder.insertCriteria("Key", Tone.C);
@@ -66,5 +67,6 @@ public class TestPlatform {
     formFactory = new TabularTextOutputFormFactory();
     form = formFactory.renderView(viewTable);
     System.out.println(form.toString());
+    */
   }
 }
