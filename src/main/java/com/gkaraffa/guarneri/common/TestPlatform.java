@@ -3,6 +3,7 @@ package com.gkaraffa.guarneri.common;
 import com.gkaraffa.cremona.helper.ScaleHelper;
 import com.gkaraffa.cremona.theoretical.Tone;
 import com.gkaraffa.cremona.theoretical.scale.Scale;
+import com.gkaraffa.guarneri.outputform.CSVOutputFormFactory;
 import com.gkaraffa.guarneri.outputform.InstrumentTextOutputFormFactory;
 import com.gkaraffa.guarneri.outputform.OutputForm;
 import com.gkaraffa.guarneri.outputform.OutputFormFactory;
@@ -24,7 +25,7 @@ public class TestPlatform {
   public static void main(String[] args) {
     ScaleHelper helper = ScaleHelper.getInstance();
     ViewQueryBuilder viewQueryBuilder = new ViewQueryBuilder();
-    Scale scale = helper.getScale("B", "Second Diminished");
+    Scale scale = helper.getScale("C", "Ionian");
 
     viewQueryBuilder.insertCriteria("Scale", scale);
     ViewQuery scaleViewQuery = viewQueryBuilder.compileViewQuery();
@@ -58,6 +59,11 @@ public class TestPlatform {
     formFactory = new InstrumentTextOutputFormFactory();
     form = formFactory.renderView(viewTable);
     System.out.println(form.toString());
+    
+    formFactory = new CSVOutputFormFactory();
+    form = formFactory.renderView(viewTable);
+    System.out.println(form.toString());
+    
     /*
     viewFactory = new ParallelModeAnalyticViewFactory();
     viewQueryBuilder.clear();
