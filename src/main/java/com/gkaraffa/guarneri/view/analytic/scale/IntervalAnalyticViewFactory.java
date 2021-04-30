@@ -5,7 +5,6 @@ import com.gkaraffa.cremona.theoretical.IntervalNumber;
 import com.gkaraffa.cremona.theoretical.scale.Scale;
 import com.gkaraffa.guarneri.view.ViewCell;
 import com.gkaraffa.guarneri.view.ViewTableBuilder;
-import com.gkaraffa.guarneri.view.analytic.scale.HorizontalScalarAnalyticViewFactory;
 
 public class IntervalAnalyticViewFactory extends HorizontalScalarAnalyticViewFactory {
 

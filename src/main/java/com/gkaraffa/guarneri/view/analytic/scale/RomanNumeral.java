@@ -92,7 +92,7 @@ public class RomanNumeral {
       case DIMINISHED:
       case HALF_DIMINISHED_SEVENTH:
       case DIMINISHED_SEVENTH:
-        return raw.toLowerCase() + "°";
+        return raw.toLowerCase() + "b5";
       case AUGMENTED:
       case AUGMENTED_MAJOR_SEVENTH:
         return raw + "+";
