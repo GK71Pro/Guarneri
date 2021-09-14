@@ -1,10 +1,13 @@
 package com.gkaraffa.guarneri.common;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.gkaraffa.cremona.helper.ScaleHelper;
 import com.gkaraffa.cremona.theoretical.Tone;
+import com.gkaraffa.cremona.theoretical.ToneGroupObject;
 import com.gkaraffa.cremona.theoretical.scale.Scale;
 import com.gkaraffa.guarneri.outputform.CSVOutputFormFactory;
-import com.gkaraffa.guarneri.outputform.InstrumentTextOutputFormFactory;
 import com.gkaraffa.guarneri.outputform.OutputForm;
 import com.gkaraffa.guarneri.outputform.OutputFormFactory;
 import com.gkaraffa.guarneri.outputform.TabularTextOutputFormFactory;
@@ -19,59 +22,78 @@ import com.gkaraffa.guarneri.view.analytic.scale.StepPatternAnalyticFactory;
 import com.gkaraffa.guarneri.view.instrument.GuitarViewFactory;
 
 public class TestPlatform {
+  private ScaleHelper helper;
+  private ViewQueryBuilder viewQueryBuilder;
 
-  public TestPlatform() {}
+  public TestPlatform() {
+    this.helper = ScaleHelper.getInstance();
+    this.viewQueryBuilder = new ViewQueryBuilder();
+
+  }
 
   public static void main(String[] args) {
-    /*
-    ScaleHelper helper = ScaleHelper.getInstance();
-    ViewQueryBuilder viewQueryBuilder = new ViewQueryBuilder();
-    Scale scale = helper.getScale("C", "Ionian");
+    TestPlatform testPlatform = new TestPlatform();
 
-    viewQueryBuilder.insertCriteria("Scale", scale);
-    ViewQuery scaleViewQuery = viewQueryBuilder.compileViewQuery();
+    testPlatform.run();
+  }
 
-    viewQueryBuilder.clear();
-    viewQueryBuilder.insertCriteria("ToneGroupObject", scale);
-    ViewQuery tgViewQuery = viewQueryBuilder.compileViewQuery();
+  public void run() {
+    ViewQuery scaleQuery = createScaleViewQuery("C", "Ionian");
+    ViewQuery keyQuery = createKeyViewQuery(Tone.C);
 
-    ViewFactory viewFactory = new StepPatternAnalyticFactory();
+    ToneGroupObject toneGroupObject = this.helper.getScale("C", "Ionian");
+    ViewQuery toneGroupObjectQuery = createToneGroupViewQuery(toneGroupObject);
+    
+    List<OutputForm> forms = new ArrayList<OutputForm>();
 
-    ViewTable viewTable = viewFactory.createView(scaleViewQuery);
+    forms.add(createTabularOutputForm(new StepPatternAnalyticFactory(), scaleQuery));
+    forms.add(createTabularOutputForm(new RomanNumeralAnalyticViewFactory(), scaleQuery));
+    forms.add(createTabularOutputForm(new IntervalAnalyticViewFactory(), scaleQuery));
+    forms.add(createTabularOutputForm(new ParallelModeAnalyticViewFactory(), keyQuery));
+    forms.add(createCSVOutputForm(new GuitarViewFactory(), toneGroupObjectQuery));
+
+    for(OutputForm form: forms) {
+      System.out.println(form.toString());
+    }
+
+  }
+  
+  private ViewQuery createScaleViewQuery(String sKey, String sScale) {
+    Scale scale = this.helper.getScale(sKey, sScale);
+
+    this.viewQueryBuilder.clear();
+    this.viewQueryBuilder.insertCriteria("Scale", scale);
+
+    return viewQueryBuilder.compileViewQuery();
+  }
+  
+  private ViewQuery createKeyViewQuery(Tone tKey) {
+    this.viewQueryBuilder.clear();
+    this.viewQueryBuilder.insertCriteria("Key", tKey);
+
+    return viewQueryBuilder.compileViewQuery();
+  }
+  
+  private ViewQuery createToneGroupViewQuery(ToneGroupObject toneGroupObject) {
+    this.viewQueryBuilder.clear();
+    this.viewQueryBuilder.insertCriteria("ToneGroupObject", toneGroupObject);
+
+    return viewQueryBuilder.compileViewQuery();
+  }
+
+  private OutputForm createTabularOutputForm(ViewFactory viewFactory, ViewQuery viewQuery) {
+    ViewTable viewTable = viewFactory.createView(viewQuery);
     OutputFormFactory formFactory = new TabularTextOutputFormFactory();
-    OutputForm form = formFactory.renderView(viewTable);
-    System.out.println(form.toString());
 
-    viewFactory = new RomanNumeralAnalyticViewFactory();
-    viewTable = viewFactory.createView(scaleViewQuery);
-    formFactory = new TabularTextOutputFormFactory();
-    form = formFactory.renderView(viewTable);
-    System.out.println(form.toString());
+    return formFactory.renderView(viewTable);
 
-    viewFactory = new IntervalAnalyticViewFactory();
-    viewTable = viewFactory.createView(scaleViewQuery);
-    formFactory = new TabularTextOutputFormFactory();
-    form = formFactory.renderView(viewTable);
-    System.out.println(form.toString());
+  }
+  
+  private OutputForm createCSVOutputForm(ViewFactory viewFactory, ViewQuery viewQuery) {
+    ViewTable viewTable = viewFactory.createView(viewQuery);
+    OutputFormFactory formFactory = new CSVOutputFormFactory();
 
-    viewFactory = new GuitarViewFactory();
-    viewTable = viewFactory.createView(tgViewQuery);
-    formFactory = new InstrumentTextOutputFormFactory();
-    form = formFactory.renderView(viewTable);
-    System.out.println(form.toString());
-    
-    formFactory = new CSVOutputFormFactory();
-    form = formFactory.renderView(viewTable);
-    System.out.println(form.toString());
-    
-    viewFactory = new ParallelModeAnalyticViewFactory();
-    viewQueryBuilder.clear();
-    viewQueryBuilder.insertCriteria("Key", Tone.C);
-    ViewQuery keyViewQuery = viewQueryBuilder.compileViewQuery();
-    viewTable = viewFactory.createView(keyViewQuery);
-    formFactory = new TabularTextOutputFormFactory();
-    form = formFactory.renderView(viewTable);
-    System.out.println(form.toString());
-    */
+    return formFactory.renderView(viewTable);
+
   }
 }

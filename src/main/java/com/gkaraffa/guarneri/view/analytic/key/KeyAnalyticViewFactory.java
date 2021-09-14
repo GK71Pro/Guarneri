@@ -37,7 +37,7 @@ public abstract class KeyAnalyticViewFactory implements ViewFactory {
       return tone;
     }
     else {
-      throw new IllegalArgumentException("ScalarAnalytics require ViewQuery containing a Key");
+      throw new IllegalArgumentException("Key Analytics require ViewQuery containing a Key");
     }
   }
 }
