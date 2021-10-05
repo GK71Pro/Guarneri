@@ -7,6 +7,7 @@ import com.gkaraffa.cremona.helper.ScaleHelper;
 import com.gkaraffa.cremona.theoretical.Tone;
 import com.gkaraffa.cremona.theoretical.ToneGroupObject;
 import com.gkaraffa.cremona.theoretical.scale.Scale;
+import com.gkaraffa.guarneri.old.ReharmonizationOptionsAnalyticViewFactory;
 import com.gkaraffa.guarneri.outputform.CSVOutputFormFactory;
 import com.gkaraffa.guarneri.outputform.OutputForm;
 import com.gkaraffa.guarneri.outputform.OutputFormFactory;
@@ -50,7 +51,8 @@ public class TestPlatform {
     forms.add(createTabularOutputForm(new RomanNumeralAnalyticViewFactory(), scaleQuery));
     forms.add(createTabularOutputForm(new IntervalAnalyticViewFactory(), scaleQuery));
     forms.add(createTabularOutputForm(new ParallelModeAnalyticViewFactory(), keyQuery));
-    forms.add(createCSVOutputForm(new GuitarViewFactory(), toneGroupObjectQuery));
+    forms.add(createTabularOutputForm(new ReharmonizationOptionsAnalyticViewFactory(), scaleQuery));
+    //forms.add(createCSVOutputForm(new GuitarViewFactory(), toneGroupObjectQuery));
 
     for(OutputForm form: forms) {
       System.out.println(form.toString());
@@ -96,4 +98,6 @@ public class TestPlatform {
     return formFactory.renderView(viewTable);
 
   }
+  
+  
 }
