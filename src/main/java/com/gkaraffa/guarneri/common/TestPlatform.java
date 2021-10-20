@@ -39,19 +39,19 @@ public class TestPlatform {
   }
 
   public void run() {
-    ViewQuery scaleQuery = createScaleViewQuery("C", "Ionian");
-    ViewQuery keyQuery = createKeyViewQuery(Tone.C);
+    ViewQuery scaleQuery = createScaleViewQuery("C#/Db", "Aeolian");
+    ViewQuery keyQuery = createKeyViewQuery(Tone.E);
 
-    ToneGroupObject toneGroupObject = this.helper.getScale("C", "Ionian");
-    ViewQuery toneGroupObjectQuery = createToneGroupViewQuery(toneGroupObject);
+    ToneGroupObject toneGroupObject = this.helper.getScale("C#/Db", "Aeolian");
+    //ViewQuery toneGroupObjectQuery = createToneGroupViewQuery(toneGroupObject);
     
     List<OutputForm> forms = new ArrayList<OutputForm>();
 
-    forms.add(createTabularOutputForm(new StepPatternAnalyticFactory(), scaleQuery));
-    forms.add(createTabularOutputForm(new RomanNumeralAnalyticViewFactory(), scaleQuery));
-    forms.add(createTabularOutputForm(new IntervalAnalyticViewFactory(), scaleQuery));
-    forms.add(createTabularOutputForm(new ParallelModeAnalyticViewFactory(), keyQuery));
-    forms.add(createTabularOutputForm(new ReharmonizationOptionsAnalyticViewFactory(), scaleQuery));
+    //forms.add(createTabularOutputForm(new StepPatternAnalyticFactory(), scaleQuery));
+    //forms.add(createTabularOutputForm(new RomanNumeralAnalyticViewFactory(), scaleQuery));
+    //forms.add(createTabularOutputForm(new IntervalAnalyticViewFactory(), scaleQuery));
+    forms.add(createCSVOutputForm(new ParallelModeAnalyticViewFactory(), keyQuery));
+    //forms.add(createTabularOutputForm(new ReharmonizationOptionsAnalyticViewFactory(), scaleQuery));
     //forms.add(createCSVOutputForm(new GuitarViewFactory(), toneGroupObjectQuery));
 
     for(OutputForm form: forms) {

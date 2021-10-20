@@ -82,12 +82,21 @@ public class ReharmonizationOptionsAnalyticViewFactory extends VerticalScalarAna
     Scale scale = super.verifyAndInterpretQuery(viewQuery);
     //  Scale scale = this.getQueryScale();
 
+    if (scale instanceof DiatonicScale) {
+      return scale;
+    }
+    else {
+      throw new IllegalArgumentException("ScalarAnalytics require ViewQuery containing a Scale");
+    }
+    
+    /*
     if (scale.getIntervalPattern() != DiatonicScale.IONIAN_PATTERN) {
       throw new IllegalArgumentException("ScalarAnalytics require ViewQuery containing a Scale");
     }
     else {
       return scale;
     }
+    */
 
     //  this.parallelScale = createParallelScale(scale);
   }
