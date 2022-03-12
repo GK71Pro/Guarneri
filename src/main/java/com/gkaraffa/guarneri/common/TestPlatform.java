@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gkaraffa.cremona.helper.ScaleHelper;
-import com.gkaraffa.cremona.theoretical.Tone;
 import com.gkaraffa.cremona.theoretical.ToneGroupObject;
-import com.gkaraffa.cremona.theoretical.scale.Scale;
 import com.gkaraffa.guarneri.outputform.CSVOutputFormFactory;
 import com.gkaraffa.guarneri.outputform.OutputForm;
 import com.gkaraffa.guarneri.outputform.OutputFormFactory;
-import com.gkaraffa.guarneri.outputform.TabularTextOutputFormFactory;
 import com.gkaraffa.guarneri.view.ViewFactory;
 import com.gkaraffa.guarneri.view.ViewQuery;
 import com.gkaraffa.guarneri.view.ViewQueryBuilder;
@@ -76,7 +73,7 @@ public class TestPlatform {
 
     return viewQueryBuilder.compileViewQuery();
   }
-  
+
   /*
   private OutputForm createTabularOutputForm(ViewFactory viewFactory, ViewQuery viewQuery) {
     ViewTable viewTable = viewFactory.createView(viewQuery);
