@@ -13,10 +13,10 @@ import com.gkaraffa.guarneri.view.ViewTable;
 import com.gkaraffa.guarneri.view.ViewTableBuilder;
 
 public abstract class InstrumentViewFactory implements ViewFactory {
-  
+
   @Override
   public ViewTable createView() {
-    return this.generateViewTable(null);
+    return this.generateViewTable();
   }
 
   @Override
@@ -35,7 +35,7 @@ public abstract class InstrumentViewFactory implements ViewFactory {
     else {
       throw new IllegalArgumentException("Unsupported Query");
     }
-    
+
     return toneCollection;
   }
 
@@ -43,14 +43,10 @@ public abstract class InstrumentViewFactory implements ViewFactory {
     ViewTableBuilder vtBuild = new ViewTableBuilder();
     InstrumentModel instrumentModel = createInstrumentModel();
     int rowLength = instrumentModel.getMaxLength();
-    
+
     for (int rowCounter = 0; rowCounter < rowLength; rowCounter++) {
-      if (toneCollection != null) {
-        this.insertRowPitches(vtBuild, rowCounter, instrumentModel.getFilteredRow(rowCounter, toneCollection));
-      }
-      else {
-        this.insertRowPitches(vtBuild, rowCounter, instrumentModel.getRow(rowCounter));
-      }
+      this.insertRowPitches(vtBuild, rowCounter,
+          instrumentModel.getFilteredRow(rowCounter, toneCollection));
     }
 
     ViewTable generatedTable = vtBuild.compileTable();
@@ -58,23 +54,38 @@ public abstract class InstrumentViewFactory implements ViewFactory {
     return generatedTable;
   }
 
+  private ViewTable generateViewTable() {
+    ViewTableBuilder vtBuild = new ViewTableBuilder();
+    InstrumentModel instrumentModel = createInstrumentModel();
+    int rowLength = instrumentModel.getMaxLength();
+
+    for (int rowCounter = 0; rowCounter < rowLength; rowCounter++) {
+      this.insertRowPitches(vtBuild, rowCounter, instrumentModel.getRow(rowCounter));
+    }
+
+    ViewTable generatedTable = vtBuild.compileTable();
+
+    return generatedTable;
+  }
+
+
   private void insertRowPitches(ViewTableBuilder vtBuild, int rowIndex, Pitch[] rowPitches) {
     int counter = 0;
-    
-    for (Pitch pitch: rowPitches) {
+
+    for (Pitch pitch : rowPitches) {
       ViewCell viewCell = null;
-      
+
       if (pitch == null) {
         viewCell = new ViewCell("");
       }
       else {
         viewCell = new ViewCell(pitch.toString());
       }
-      
-      vtBuild.insertCell(counter, rowIndex, viewCell); 
+
+      vtBuild.insertCell(counter, rowIndex, viewCell);
       counter++;
     }
   }
-  
+
   protected abstract InstrumentModel createInstrumentModel();
 }
