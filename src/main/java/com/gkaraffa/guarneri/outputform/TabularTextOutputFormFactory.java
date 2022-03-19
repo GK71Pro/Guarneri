@@ -12,7 +12,6 @@ public class TabularTextOutputFormFactory extends TextOutputFormFactory {
 
     sB.append(this.renderHeader(fieldSpace, modelTable));
     sB.append(this.renderBody(fieldSpace, modelTable));
-    // sB.append(this.renderFoot(fieldSpace));
     sB.append("\n");
 
     String viewString = sB.toString();

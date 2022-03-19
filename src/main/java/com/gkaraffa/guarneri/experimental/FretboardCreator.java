@@ -9,8 +9,6 @@ public class FretboardCreator {
   private static final String fret =
       "---------------------------------------------------------------\n";
 
-  public FretboardCreator() {}
-
   public static String createFretboardText(GuitarModel guitarModel) {
     StringBuilder sB = new StringBuilder();
     int numStrings = guitarModel.getMaxWidth();

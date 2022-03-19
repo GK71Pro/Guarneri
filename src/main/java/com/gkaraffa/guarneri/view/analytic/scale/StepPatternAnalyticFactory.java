@@ -12,22 +12,6 @@ public class StepPatternAnalyticFactory extends HorizontalScalarAnalyticViewFact
   protected String[] applyHeaderArray() {
     return new String[] {"Degree", "Tone", "Distance To Next"};
   }
-
-  /*
-  @Override
-  protected void buildRowFromToneCollection(ViewTableBuilder vtBuild, ToneCollection toneCollection,
-      int collectionPosition) {
-    int yIndex = collectionPosition + 1;
-
-    vtBuild.insertCell(0, yIndex, new ViewCell(Integer.toString(yIndex)));
-    vtBuild.insertCell(1, yIndex,
-        new ViewCell(toneCollection.getTone(collectionPosition).toString()));
-    vtBuild.insertCell(2, yIndex,
-        new ViewCell(
-            getSteps(TonalSpectrum.measureDistance(toneCollection.getTone(collectionPosition),
-                toneCollection.getTone(collectionPosition + 1)))));
-  }
-  */
   
   @Override
   protected void buildRowFromToneCollection(ViewTableBuilder vtBuild, Scale scale,

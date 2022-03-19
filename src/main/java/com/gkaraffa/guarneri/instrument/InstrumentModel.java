@@ -4,7 +4,7 @@ public abstract class InstrumentModel implements InstrumentRow, InstrumentColumn
   protected int maxWidth;
   protected int maxLength;
 
-  public InstrumentModel() {}
+  protected InstrumentModel() {}
 
   public int getMaxWidth() {
     return maxWidth;

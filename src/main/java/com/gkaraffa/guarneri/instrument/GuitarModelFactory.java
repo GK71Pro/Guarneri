@@ -30,7 +30,7 @@ public class GuitarModelFactory extends InstrumentModelFactory {
   @Override
   public InstrumentModel createInstrumentModel(InstrumentModelParameterObject iMPO) {
     int fretCount;
-    ArrayList<Pitch> parmOpenStringPitches = new ArrayList<Pitch>();
+    ArrayList<Pitch> parmOpenStringPitches = null;
 
     if (iMPO instanceof GuitarModelParameterObject) {
       GuitarModelParameterObject gMPO = (GuitarModelParameterObject) iMPO;

@@ -45,16 +45,16 @@ public class ParallelModeAnalyticViewFactory extends KeyAnalyticViewFactory {
     Scale baseScale = this.selectScale(key, 0);
     List<RomanNumeral> baseRomanNumerals = this.buildRomanNumerals(baseScale);
 
-    this.buildBasePair(vtBuild, baseScale, baseRomanNumerals);
+    this.buildBasePair(vtBuild, baseRomanNumerals);
     
     for (int index = 0; index < rowLimit; index++) {
-      this.buildRowPair(vtBuild, baseScale, baseRomanNumerals, key, index);
+      this.buildRowPair(vtBuild, baseRomanNumerals, key, index);
     }
   }
 
 
 
-  private void buildBasePair(ViewTableBuilder vtBuild, Scale baseScale,
+  private void buildBasePair(ViewTableBuilder vtBuild, 
       List<RomanNumeral> baseRomanNumerals) {
 
     for (int index = 0; index < this.scaleLimit; index++) {
@@ -68,7 +68,7 @@ public class ParallelModeAnalyticViewFactory extends KeyAnalyticViewFactory {
 
   }
 
-  private void buildRowPair(ViewTableBuilder vtBuild, Scale baseScale,
+  private void buildRowPair(ViewTableBuilder vtBuild, 
       List<RomanNumeral> baseRomanNumerals, Tone key, int modalOffset) {
     Scale currentScale = this.selectScale(key, modalOffset);
     List<RomanNumeral> currentRomanNumerals = this.buildRomanNumerals(currentScale);

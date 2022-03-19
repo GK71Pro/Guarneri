@@ -60,16 +60,9 @@ public class Keyboard {
       builderEbony.append(",");
     }
 
-    // builderIvory.deleteCharAt(builderIvory.length() - 1);
     builderEbony.deleteCharAt(builderEbony.length() - 1);
 
     return (builderEbony.toString() + "\n" + builderIvory.toString() + "\n");
-  }
-
-  public Keyboard createFiltered(ToneCollection toneCollection) {
-
-    return null;
-
   }
 
   private void buildInstrument() {

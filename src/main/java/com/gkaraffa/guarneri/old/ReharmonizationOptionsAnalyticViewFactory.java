@@ -33,17 +33,17 @@ public class ReharmonizationOptionsAnalyticViewFactory extends VerticalScalarAna
 
     return vtBuild.compileTable();
   }
-  
+
   protected void buildBody(ViewTableBuilder vtBuild, Scale primaryScale, Scale parallelScale) {
     int collectionSize = primaryScale.getToneCollection().getSize();
-    
+
     for (int collectionPosition = 0; collectionPosition < collectionSize; collectionPosition++) {
       buildColumnFromToneCollection(vtBuild, primaryScale, parallelScale, collectionPosition);
     }
   }
-  
-  protected void buildColumnFromToneCollection(ViewTableBuilder vtBuild, Scale primaryScale, Scale parallelScale,
-      int collectionPosition) {
+
+  protected void buildColumnFromToneCollection(ViewTableBuilder vtBuild, Scale primaryScale,
+      Scale parallelScale, int collectionPosition) {
     int xIndex = collectionPosition + 1;
 
     RomanNumeral primaryRomanNumeral =
@@ -57,9 +57,8 @@ public class ReharmonizationOptionsAnalyticViewFactory extends VerticalScalarAna
     vtBuild.insertCell(xIndex, 0, new ViewCell(primaryRomanNumeral.getText()));
     vtBuild.insertCell(xIndex, 1, new ViewCell(primaryChord.getAbbrev()));
 
-    if ((
-    (primaryChord.getIntervalPattern().getIntervalByIntervalNumber(IntervalNumber.FIFTH)
-    == Interval.DIMINISHED_FIFTH))
+    if ((primaryChord.getIntervalPattern()
+        .getIntervalByIntervalNumber(IntervalNumber.FIFTH) == Interval.DIMINISHED_FIFTH)
         || (collectionPosition == 0)) {
       vtBuild.insertCell(xIndex, 2, new ViewCell(""));
     }
@@ -68,19 +67,20 @@ public class ReharmonizationOptionsAnalyticViewFactory extends VerticalScalarAna
           new ViewCell(this.getSecondaryDominantChord(primaryChord).getAbbrev()));
     }
 
-    vtBuild.insertCell(xIndex, 3, new ViewCell(determineParallelRomanNumeralText(primaryChord, parallelChord, parallelRomanNumeral)));
+    vtBuild.insertCell(xIndex, 3, new ViewCell(
+        determineParallelRomanNumeralText(primaryChord, parallelChord, parallelRomanNumeral)));
     vtBuild.insertCell(xIndex, 4, new ViewCell(parallelChord.getAbbrev()));
   }
 
   @Override
   protected String[] applyHeaderArray() {
-    return new String[] {"Primary Degree", "Primary Chord", "Secondary Dominant", "Parallel Degree", "Parallel Chord"};
+    return new String[] {"Primary Degree", "Primary Chord", "Secondary Dominant", "Parallel Degree",
+        "Parallel Chord"};
   }
 
   @Override
   protected Scale verifyAndInterpretQuery(ViewQuery viewQuery) {
     Scale scale = super.verifyAndInterpretQuery(viewQuery);
-    //  Scale scale = this.getQueryScale();
 
     if (scale instanceof DiatonicScale) {
       return scale;
@@ -88,17 +88,6 @@ public class ReharmonizationOptionsAnalyticViewFactory extends VerticalScalarAna
     else {
       throw new IllegalArgumentException("ScalarAnalytics require ViewQuery containing a Scale");
     }
-    
-    /*
-    if (scale.getIntervalPattern() != DiatonicScale.IONIAN_PATTERN) {
-      throw new IllegalArgumentException("ScalarAnalytics require ViewQuery containing a Scale");
-    }
-    else {
-      return scale;
-    }
-    */
-
-    //  this.parallelScale = createParallelScale(scale);
   }
 
   private Scale createParallelScale(Scale primaryScale) {
@@ -116,25 +105,26 @@ public class ReharmonizationOptionsAnalyticViewFactory extends VerticalScalarAna
     return chordFactory.createChordFromIntervalPattern(Chord.DOMINANT_SEVENTH_CHORD_PATTERN,
         secondaryTonic);
   }
-  
-  private String determineParallelRomanNumeralText(Chord primaryChord, Chord parallelChord, RomanNumeral parallelRomanNumeral) {
+
+  private String determineParallelRomanNumeralText(Chord primaryChord, Chord parallelChord,
+      RomanNumeral parallelRomanNumeral) {
     Tone primaryTone = primaryChord.getTonic();
     Tone parallelTone = parallelChord.getTonic();
-    
+
     if (primaryTone.equals(parallelTone)) {
       return parallelRomanNumeral.getText();
     }
-    
+
     if (TonalSpectrum.traverseDistance(primaryTone, 1).equals(parallelTone)) {
-      //sharp
+      // sharp
       return "#" + parallelRomanNumeral.getText();
     }
-    
+
     if (TonalSpectrum.traverseDistance(parallelTone, 1).equals(primaryTone)) {
-      //flat
+      // flat
       return "b" + parallelRomanNumeral.getText();
     }
-    
+
     throw new IllegalArgumentException("Failure in conversion");
   }
 
@@ -142,6 +132,6 @@ public class ReharmonizationOptionsAnalyticViewFactory extends VerticalScalarAna
   protected void buildColumnFromToneCollection(ViewTableBuilder vtBuild, Scale scale,
       int collectionPosition) {
     throw new UnsupportedOperationException("not supported");
-    
+
   }
 }
