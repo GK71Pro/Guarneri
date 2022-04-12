@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gkaraffa.cremona.helper.ScaleHelper;
+import com.gkaraffa.cremona.theoretical.Tone;
+import com.gkaraffa.cremona.theoretical.ToneCollection;
+import com.gkaraffa.cremona.theoretical.ToneCollectionBuilder;
 import com.gkaraffa.cremona.theoretical.ToneGroupObject;
 import com.gkaraffa.guarneri.outputform.CSVOutputFormFactory;
 import com.gkaraffa.guarneri.outputform.OutputForm;
@@ -12,6 +15,7 @@ import com.gkaraffa.guarneri.view.ViewFactory;
 import com.gkaraffa.guarneri.view.ViewQuery;
 import com.gkaraffa.guarneri.view.ViewQueryBuilder;
 import com.gkaraffa.guarneri.view.ViewTable;
+import com.gkaraffa.guarneri.view.analytic.chord.ToneAnalyticFacet;
 import com.gkaraffa.guarneri.view.instrument.GuitarViewFactory;
 
 public class TestPlatform {
@@ -46,7 +50,12 @@ public class TestPlatform {
     for(OutputForm form: forms) {
       System.out.println(form.toString());
     }
+    
+    List<ToneAnalyticFacet> facets = this.createFacets(this.populateCluster());
 
+    for (ToneAnalyticFacet facet: facets) {
+      System.out.println(facet.toString());
+    }
   }
 
   /*
@@ -90,6 +99,35 @@ public class TestPlatform {
 
     return formFactory.renderView(viewTable);
 
+  }
+  
+  private List<ToneAnalyticFacet> createFacets(ToneGroupObject tGO){
+    return ToneAnalyticFacet.createToneAnalyticFacets(tGO);
+  }
+  
+  private ToneCluster populateCluster() {
+    ToneCollectionBuilder tCB = new ToneCollectionBuilder();
+    tCB.append(Tone.D);
+    tCB.append(Tone.A);
+    tCB.append(Tone.C);
+    tCB.append(Tone.E);
+    
+    ToneCollection tC = tCB.toToneCollection();
+    
+    return new ToneCluster(tC);
+  }
+  
+  class ToneCluster extends ToneGroupObject{
+    
+    public ToneCluster(ToneCollection toneCollection) {
+      super("");
+      this.setToneCollection(toneCollection);      
+    }
+
+    public ToneCluster(String text) {
+      super(text);
+    }
+    
   }
 
 }
