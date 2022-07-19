@@ -4,12 +4,11 @@ import java.util.ArrayList;
 
 import com.gkaraffa.cremona.theoretical.TonalSpectrum;
 import com.gkaraffa.cremona.theoretical.Tone;
-import com.gkaraffa.cremona.theoretical.ToneCollection;
 
 public class Keyboard {
   private final int numberOfKeys;
   private final Tone startingTone;
-  private final ArrayList<Key> keyList = new ArrayList<Key>();
+  private final ArrayList<Key> keyList = new ArrayList<>();
 
   public Keyboard() {
     this.numberOfKeys = 88;
