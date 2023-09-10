@@ -16,6 +16,7 @@ import com.gkaraffa.guarneri.view.ViewQuery;
 import com.gkaraffa.guarneri.view.ViewQueryBuilder;
 import com.gkaraffa.guarneri.view.ViewTable;
 import com.gkaraffa.guarneri.view.analytic.chord.ToneAnalyticFacet;
+import com.gkaraffa.guarneri.view.analytic.key.ParallelModeAnalyticViewFactory;
 import com.gkaraffa.guarneri.view.instrument.GuitarViewFactory;
 
 public class TestPlatform {
@@ -36,26 +37,28 @@ public class TestPlatform {
 
   public void run() {
     ToneGroupObject toneGroupObject = this.helper.getScale("C", "Ionian");
-    ViewQuery toneGroupObjectQuery = createToneGroupViewQuery(toneGroupObject);
-
+    //ViewQuery toneGroupObjectQuery = createToneGroupViewQuery(toneGroupObject);
+    ViewQuery keyQuery = this.createKeyViewQuery(Tone.C);
     List<OutputForm> forms = new ArrayList<>();
 
     //forms.add(createTabularOutputForm(new StepPatternAnalyticFactory(), scaleQuery));
     //forms.add(createTabularOutputForm(new RomanNumeralAnalyticViewFactory(), scaleQuery));
     //forms.add(createTabularOutputForm(new IntervalAnalyticViewFactory(), scaleQuery));
-    //forms.add(createCSVOutputForm(new ParallelModeAnalyticViewFactory(), keyQuery));
+    forms.add(createCSVOutputForm(new ParallelModeAnalyticViewFactory(), keyQuery));
     //forms.add(createTabularOutputForm(new ReharmonizationOptionsAnalyticViewFactory(), scaleQuery));
-    forms.add(createCSVOutputForm(new GuitarViewFactory(), toneGroupObjectQuery));
+    //forms.add(createCSVOutputForm(new GuitarViewFactory(), toneGroupObjectQuery));
 
     for(OutputForm form: forms) {
       System.out.println(form.toString());
     }
     
+    /*
     List<ToneAnalyticFacet> facets = this.createFacets(this.populateCluster());
 
     for (ToneAnalyticFacet facet: facets) {
       System.out.println(facet.toString());
     }
+    */
   }
 
   /*
@@ -66,7 +69,8 @@ public class TestPlatform {
     this.viewQueryBuilder.insertCriteria("Scale", scale);
 
     return viewQueryBuilder.compileViewQuery();
-  }
+  } 
+  */
 
   private ViewQuery createKeyViewQuery(Tone tKey) {
     this.viewQueryBuilder.clear();
@@ -74,7 +78,7 @@ public class TestPlatform {
 
     return viewQueryBuilder.compileViewQuery();
   }
-  */
+  
 
   private ViewQuery createToneGroupViewQuery(ToneGroupObject toneGroupObject) {
     this.viewQueryBuilder.clear();
