@@ -11,12 +11,14 @@ import com.gkaraffa.cremona.theoretical.ToneGroupObject;
 import com.gkaraffa.guarneri.outputform.CSVOutputFormFactory;
 import com.gkaraffa.guarneri.outputform.OutputForm;
 import com.gkaraffa.guarneri.outputform.OutputFormFactory;
+import com.gkaraffa.guarneri.outputform.TabularTextOutputFormFactory;
 import com.gkaraffa.guarneri.view.ViewFactory;
 import com.gkaraffa.guarneri.view.ViewQuery;
 import com.gkaraffa.guarneri.view.ViewQueryBuilder;
 import com.gkaraffa.guarneri.view.ViewTable;
 import com.gkaraffa.guarneri.view.analytic.chord.ToneAnalyticFacet;
 import com.gkaraffa.guarneri.view.analytic.key.ParallelModeAnalyticViewFactory;
+import com.gkaraffa.guarneri.view.analytic.scale.RomanNumeralAnalyticViewFactory;
 import com.gkaraffa.guarneri.view.instrument.GuitarViewFactory;
 
 public class TestPlatform {
@@ -37,28 +39,14 @@ public class TestPlatform {
 
   public void run() {
     ToneGroupObject toneGroupObject = this.helper.getScale("C", "Ionian");
-    //ViewQuery toneGroupObjectQuery = createToneGroupViewQuery(toneGroupObject);
-    ViewQuery keyQuery = this.createKeyViewQuery(Tone.C);
+    ViewQuery toneGroupQuery = this.createToneGroupViewQuery(toneGroupObject);
     List<OutputForm> forms = new ArrayList<>();
 
-    //forms.add(createTabularOutputForm(new StepPatternAnalyticFactory(), scaleQuery));
-    //forms.add(createTabularOutputForm(new RomanNumeralAnalyticViewFactory(), scaleQuery));
-    //forms.add(createTabularOutputForm(new IntervalAnalyticViewFactory(), scaleQuery));
-    forms.add(createCSVOutputForm(new ParallelModeAnalyticViewFactory(), keyQuery));
-    //forms.add(createTabularOutputForm(new ReharmonizationOptionsAnalyticViewFactory(), scaleQuery));
-    //forms.add(createCSVOutputForm(new GuitarViewFactory(), toneGroupObjectQuery));
+    forms.add(createTabularOutputForm(new RomanNumeralAnalyticViewFactory(), toneGroupQuery));
 
     for(OutputForm form: forms) {
       System.out.println(form.toString());
-    }
-    
-    /*
-    List<ToneAnalyticFacet> facets = this.createFacets(this.populateCluster());
-
-    for (ToneAnalyticFacet facet: facets) {
-      System.out.println(facet.toString());
-    }
-    */
+    }    
   }
 
   /*
@@ -103,6 +91,13 @@ public class TestPlatform {
 
     return formFactory.renderView(viewTable);
 
+  }
+  
+  private OutputForm createTabularOutputForm(ViewFactory viewFactory, ViewQuery viewQuery) {
+    ViewTable viewTable = viewFactory.createView(viewQuery);
+    OutputFormFactory formFactory = new TabularTextOutputFormFactory();
+
+    return formFactory.renderView(viewTable);
   }
   
   private List<ToneAnalyticFacet> createFacets(ToneGroupObject tGO){

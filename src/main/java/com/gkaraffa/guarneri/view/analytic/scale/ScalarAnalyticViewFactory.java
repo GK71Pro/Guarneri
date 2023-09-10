@@ -32,7 +32,7 @@ public abstract class ScalarAnalyticViewFactory implements ViewFactory {
   }
   
   protected Scale verifyAndInterpretQuery(ViewQuery viewQuery) {
-    ToneGroupObject tGO = (ToneGroupObject) viewQuery.getCriteria("Scale");
+    ToneGroupObject tGO = (ToneGroupObject) viewQuery.getCriteria("ToneGroupObject");
     
     if (tGO instanceof Scale) {
       return (Scale) tGO;
